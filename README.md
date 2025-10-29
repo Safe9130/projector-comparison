@@ -1,1 +1,1 @@
-# projector-comparison
+# Projector-Comparison
