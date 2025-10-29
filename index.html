@@ -2247,9 +2247,9 @@ let DATA = [
 ];
 
 const I18N={
- zh:{ui:{ind:'指標',added:'已加入',exists:'已在比較',need:'請先選擇',clear:'已清空',imported:'匯入完成'},metrics:{brand:"品牌",model:"型號",tech:"技術",panel_size:"面板尺寸(吋)",resolution_class:"解析度",brightness_lm:"亮度(lm)",power_w:"功耗(W)",lm_per_w:"效率(lm/W)",dims:"尺寸(mm)",volume_L:"體積(L)",lm_per_L:"亮度體積比",weight_kg:"重量(kg)",lm_per_kg:"亮度重量比",noise_db:"噪音(dB)"}},
- en:{ui:{ind:'Metric',added:'Added',exists:'Already added',need:'Please select',clear:'Cleared',imported:'Import done'},metrics:{brand:"Brand",model:"Model",tech:"Technology",panel_size:"Panel Size",resolution_class:"Resolution",brightness_lm:"Brightness(lm)",power_w:"Power(W)",lm_per_w:"Efficiency(lm/W)",dims:"Dimensions(mm)",volume_L:"Volume(L)",lm_per_L:"Lumens/L",weight_kg:"Weight(kg)",lm_per_kg:"Lumens/kg",noise_db:"Noise(dB)"}},
- ja:{ui:{ind:'指標',added:'追加済み',exists:'すでに追加',need:'選択してください',clear:'クリアしました',imported:'インポート完了'},metrics:{brand:"ブランド",model:"型番",tech:"方式",panel_size:"パネルサイズ(インチ)",resolution_class:"解像度",brightness_lm:"明るさ(lm)",power_w:"消費電力(W)",lm_per_w:"効率(lm/W)",dims:"サイズ(mm)",volume_L:"体積(L)",lm_per_L:"輝度体積比",weight_kg:"重量(kg)",lm_per_kg:"輝度重量比",noise_db:"騒音(dB)"}}
+ zh:{ui:{ind:'指標',added:'已加入',exists:'已在比較',need:'請先選擇',clear:'已清空',imported:'匯入完成'},metrics:{brand:"品牌",model:"型號",tech:"技術",panel_size:"面板尺寸(吋)",resolution_class:"解析度",brightness_lm:"亮度(lm)",power_w:"功耗(W)",lm_per_w:"效率(lm/W)",dims:"尺寸(W×D×H)(mm)",volume_L:"體積(L)",lm_per_L:"亮度體積比",weight_kg:"重量(kg)",lm_per_kg:"亮度重量比",noise_db:"噪音(dB)"}},
+ en:{ui:{ind:'Metric',added:'Added',exists:'Already added',need:'Please select',clear:'Cleared',imported:'Import done'},metrics:{brand:"Brand",model:"Model",tech:"Technology",panel_size:"Panel Size",resolution_class:"Resolution",brightness_lm:"Brightness(lm)",power_w:"Power(W)",lm_per_w:"Efficiency(lm/W)",dims:"Dimensions(W×D×H)(mm)",volume_L:"Volume(L)",lm_per_L:"Lumens/L",weight_kg:"Weight(kg)",lm_per_kg:"Lumens/kg",noise_db:"Noise(dB)"}},
+ ja:{ui:{ind:'指標',added:'追加済み',exists:'すでに追加',need:'選択してください',clear:'クリアしました',imported:'インポート完了'},metrics:{brand:"ブランド",model:"型番",tech:"方式",panel_size:"パネルサイズ(インチ)",resolution_class:"解像度",brightness_lm:"明るさ(lm)",power_w:"消費電力(W)",lm_per_w:"効率(lm/W)",dims:"サイズ(W×D×H)(mm)",volume_L:"体積(L)",lm_per_L:"輝度体積比",weight_kg:"重量(kg)",lm_per_kg:"輝度重量比",noise_db:"騒音(dB)"}}
 };
 
 function derive(p){
@@ -2308,7 +2308,7 @@ function render(){
        case 'brightness_lm': v=show(p.brightness_lm); raw=p.brightness_lm; break;
        case 'power_w':      v=show(p.power_w);       raw=p.power_w;      break;
        case 'lm_per_w':     v=show(p.lm_per_w?.toFixed(2)); raw=p.lm_per_w; break;
-       case 'dims':         v=show(`${p.dims_mm.w}x${p.dims_mm.d}x${p.dims_mm.h}`); break;
+       case 'dims':         v=show(`${p.dims_mm.w}×${p.dims_mm.d}×${p.dims_mm.h}`); break;
        case 'volume_L':     v=show(p.volume_L?.toFixed(2)); raw=p.volume_L; break;
        case 'lm_per_L':     v=show(p.lm_per_L?.toFixed(0)); raw=p.lm_per_L; break;
        case 'weight_kg':    v=show(p.weight_kg);  raw=p.weight_kg; break;
