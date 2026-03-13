@@ -1,199 +1,299 @@
-<!DOCTYPE html>
 <html lang="zh-Hant"><head>
 <meta charset="utf-8">
 <meta content="width=device-width,initial-scale=1" name="viewport">
-<title>Kyleの投影機規格比較 v3.1</title>
+<title>Kyleの投影機規格比較 v3.3</title>
 <style>
-:root{
-  color-scheme: light dark;
-}
-:root[data-theme="light"]{
-  --bg:#f5f7fb;
-  --surface:#fff;
-  --surface-2:#eff3f8;
-  --text:#0e1621;
-  --muted:#5c708a;
-  --accent:#2eaadc;
-  --good:#44d17a;
-  --danger:#ef4444;
-  --warning:#f59e0b;
-  --border:rgba(16,24,40,.1);
-  --shadow:0 6px 18px rgba(16,24,40,.08);
-  --radius:16px;
-}
-body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Noto Sans,Arial;}
-.container{max-width:1400px;margin:20px auto;padding:0 16px;}
-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap;}
-h1{margin:0;font-size:26px}
-.sub{color:var(--muted)}
-.grid{display:grid;grid-template-columns:280px 1fr;gap:16px;}
-@media(max-width:900px){.grid{grid-template-columns:1fr}}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);}
-.card h2{margin:0;padding:14px 16px;border-bottom:1px solid var(--border);color:var(--muted);display:flex;align-items:center;justify-content:space-between;}
-.card .content{padding:14px 16px;}
-.row{display:flex;align-items:center;flex-wrap:wrap;gap:10px;}
-select,input{background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:8px 10px;width:100%;}
-.btn{background:var(--accent);color:#04222c;border:none;padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:600;box-shadow:0 4px 10px rgba(46,170,220,.35);transition:all 0.2s;white-space:nowrap;}
-.btn:hover{transform:translateY(-1px);box-shadow:0 6px 14px rgba(46,170,220,.45);}
-.btn.secondary{background:var(--surface-2);color:var(--text);border:1px solid var(--border);box-shadow:none;}
-.btn.secondary:hover{background:var(--surface);border-color:var(--accent);}
-.btn.danger{background:var(--danger);color:white;}
-.btn.warning{background:var(--warning);color:white;}
-.btn.small{padding:4px 8px;font-size:12px;}
-table{width:100%;border-collapse:separate;border-spacing:0;font-size:14px;}
-th,td{padding:10px;border-bottom:1px solid var(--border);vertical-align:middle;}
-thead th{position:sticky;top:0;background:var(--surface);color:var(--muted);text-align:left;z-index:10;}
-thead th:first-child{left:0;z-index:11;box-shadow:2px 0 4px rgba(0,0,0,0.05);}
-tbody tr:nth-child(even){background:color-mix(in oklab,var(--surface) 90%,var(--text) 2%);}
-tbody tr:hover{background:color-mix(in oklab,var(--surface) 85%,var(--accent) 5%);}
-tbody td:first-child{position:sticky;left:0;background:inherit;font-weight:600;box-shadow:2px 0 4px rgba(0,0,0,0.05);}
-.is-best{outline:2px solid var(--good);outline-offset:-2px;border-radius:6px;font-weight:700;}
-.chip{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:var(--surface-2);border:1px solid var(--border);}
-.toast{position:fixed;right:16px;bottom:16px;background:var(--surface);border:1px solid var(--border);padding:10px 14px;border-radius:10px;box-shadow:var(--shadow);animation:slideIn 0.3s;z-index:1000;}
-@keyframes slideIn{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
-
-/* 已選產品列表樣式 */
-.selected-list{list-style:none;padding:0;margin:12px 0;}
-.selected-item{display:flex;align-items:center;gap:8px;padding:8px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;margin-bottom:6px;}
-.selected-item .name{flex:1;font-weight:500;font-size:13px;}
+:root{color-scheme:light dark;}
+:root[data-theme="light"]{--bg:#f0f4f8;--surface:#fff;--surface-2:#f8fafc;--surface-hover:#f1f5f9;--text:#0f172a;--text-secondary:#475569;--muted:#64748b;--accent:#0ea5e9;--accent-hover:#0284c7;--good:#10b981;--danger:#ef4444;--warning:#f59e0b;--border:#e2e8f0;--shadow:0 1px 3px 0 rgb(0 0 0/0.1),0 1px 2px -1px rgb(0 0 0/0.1);--shadow-md:0 4px 6px -1px rgb(0 0 0/0.1),0 2px 4px -2px rgb(0 0 0/0.1);--shadow-lg:0 10px 15px -3px rgb(0 0 0/0.1),0 4px 6px -4px rgb(0 0 0/0.1);--radius:12px;--radius-sm:8px;}
+:root[data-theme="dark"]{--bg:#0f172a;--surface:#1e293b;--surface-2:#334155;--surface-hover:#475569;--text:#f1f5f9;--text-secondary:#cbd5e1;--muted:#94a3b8;--accent:#0ea5e9;--accent-hover:#0284c7;--good:#10b981;--danger:#ef4444;--warning:#f59e0b;--border:#334155;--shadow:0 1px 3px 0 rgb(0 0 0/0.3),0 1px 2px -1px rgb(0 0 0/0.3);--shadow-md:0 4px 6px -1px rgb(0 0 0/0.3),0 2px 4px -2px rgb(0 0 0/0.3);--shadow-lg:0 10px 15px -3px rgb(0 0 0/0.3),0 4px 6px -4px rgb(0 0 0/0.3);--radius:12px;--radius-sm:8px;}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;}
+.container{max-width:1600px;margin:0 auto;padding:24px;}
+header{background:var(--surface);border-radius:var(--radius);padding:20px 24px;margin-bottom:24px;box-shadow:var(--shadow);}
+.header-content{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.header-left{display:flex;align-items:center;gap:12px;}
+h1{margin:0;font-size:28px;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--good));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.version-badge{background:var(--accent);color:#fff;padding:4px 12px;border-radius:999px;font-size:12px;font-weight:600;}
+.header-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.btn{background:var(--accent);color:#fff;border:none;padding:10px 18px;border-radius:var(--radius-sm);cursor:pointer;font-weight:600;font-size:14px;transition:all 0.2s;white-space:nowrap;box-shadow:var(--shadow);}
+.btn:hover{background:var(--accent-hover);transform:translateY(-1px);box-shadow:var(--shadow-md);}
+.btn.secondary{background:var(--surface-2);color:var(--text);border:1px solid var(--border);}
+.btn.secondary:hover{background:var(--surface-hover);border-color:var(--accent);}
+.btn.danger{background:var(--danger);}
+.btn.warning{background:var(--warning);}
+.btn.small{padding:6px 12px;font-size:13px;}
+.btn.clear-filters{background:var(--surface-2);color:var(--text);border:1px solid var(--border);width:100%;margin-top:12px;display:flex;align-items:center;justify-content:center;gap:6px;}
+.btn.clear-filters:hover{background:var(--surface-hover);border-color:var(--accent);color:var(--accent);}
+.btn-icon{display:inline-flex;align-items:center;gap:6px;}
+.grid{display:grid;grid-template-columns:350px 1fr;gap:24px;align-items:start;}
+@media(max-width:1200px){.grid{grid-template-columns:300px 1fr;}}
+@media(max-width:1024px){.grid{grid-template-columns:1fr;}}
+aside{position:sticky;top:24px;max-height:calc(100vh - 48px);overflow-y:auto;}
+@media(max-width:1024px){aside{position:static;max-height:none;}}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;}
+.card-header{padding:16px 20px;border-bottom:1px solid var(--border);background:var(--surface-2);}
+.card-header h2{margin:0;font-size:16px;font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:0.5px;}
+.card-content{padding:20px;}
+.sidebar-section{margin-bottom:20px;}
+.sidebar-section:last-child{margin-bottom:0;}
+.sidebar-section.highlight{background:linear-gradient(135deg,rgba(14,165,233,0.08),rgba(16,185,129,0.08));border:2px solid var(--accent);border-radius:var(--radius);padding:16px;margin:-16px;margin-bottom:4px;box-shadow:var(--shadow-md);}
+.sidebar-section.highlight .section-label{color:var(--accent);font-size:14px;font-weight:700;}
+.section-label{display:block;margin-bottom:8px;font-weight:600;font-size:13px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.3px;line-height:1.2;}
+.filter-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+.filter-item{display:flex;flex-direction:column;gap:6px;width:100%;}
+select,input{background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;width:100%;font-size:14px;transition:all 0.2s;}
+select:focus,input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(14,165,233,0.1);}
+select:hover,input:hover{border-color:var(--muted);}
+.divider{height:1px;background:var(--border);margin:16px 0;}
+.selected-list{list-style:none;padding:0;margin:0;}
+.selected-item{display:flex;align-items:center;gap:10px;padding:12px;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:8px;transition:all 0.2s;}
+.selected-item:hover{background:var(--surface-hover);border-color:var(--accent);}
+.selected-item .name{flex:1;font-weight:500;font-size:14px;color:var(--text);}
+.selected-item .index{display:flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--accent);color:#fff;border-radius:50%;font-size:12px;font-weight:700;}
 .selected-item .controls{display:flex;gap:4px;}
-.move-btn{width:28px;height:28px;padding:0;display:flex;align-items:center;justify-content:center;font-size:16px;}
+.move-btn{width:32px;height:32px;padding:0;display:flex;align-items:center;justify-content:center;font-size:18px;}
 .delete-btn{background:var(--danger);color:white;}
-
-/* 比較差異樣式 */
-.comparison-card{margin-top:16px;padding:12px;background:var(--surface-2);border-radius:12px;border:1px solid var(--border);}
-.comparison-card h3{margin:0 0 12px 0;font-size:15px;color:var(--accent);}
-.compare-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);}
+.comparison-card{margin-top:20px;padding:16px;background:linear-gradient(135deg,rgba(14,165,233,0.05),rgba(16,185,129,0.05));border:1px solid var(--border);border-radius:var(--radius);backdrop-filter:blur(10px);}
+.comparison-card h3{margin:0 0 16px 0;font-size:16px;color:var(--accent);display:flex;align-items:center;gap:8px;}
+.base-product-box{padding:12px;background:var(--surface);border-radius:var(--radius-sm);border:2px solid var(--accent);margin-bottom:16px;}
+.base-product-label{font-size:11px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px;font-weight:600;}
+.base-product-name{font-weight:700;color:var(--accent);font-size:15px;margin-bottom:6px;}
+.base-product-volume{font-size:13px;color:var(--text-secondary);}
+.compare-row{display:flex;justify-content:space-between;align-items:center;padding:12px;border-bottom:1px solid var(--border);transition:all 0.2s;}
+.compare-row:hover{background:var(--surface-2);}
 .compare-row:last-child{border-bottom:none;}
-.compare-label{font-weight:600;color:var(--text);}
-.compare-value{font-size:16px;font-weight:700;}
+.compare-product-info{flex:1;}
+.compare-product-name{font-weight:600;font-size:14px;color:var(--text);}
+.compare-product-volume{font-size:12px;color:var(--muted);margin-top:2px;}
+.compare-result{text-align:right;}
+.compare-value{font-size:18px;font-weight:700;}
 .compare-value.positive{color:var(--good);}
 .compare-value.negative{color:var(--danger);}
 .compare-value.neutral{color:var(--muted);}
-
-/* Modal 樣式 */
-.modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:999;align-items:center;justify-content:center;padding:20px;}
-.modal.show{display:flex;}
-.modal-content{background:var(--surface);border-radius:var(--radius);max-width:900px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow);}
-.modal-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
-.modal-header h2{margin:0;font-size:20px;}
-.modal-body{padding:20px;}
-.modal-footer{padding:16px 20px;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end;}
-.close-btn{background:none;border:none;font-size:24px;cursor:pointer;color:var(--muted);padding:0;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:8px;}
-.close-btn:hover{background:var(--surface-2);}
-
-/* Form 樣式 */
-.form-group{margin-bottom:16px;}
-.form-group label{display:block;margin-bottom:6px;font-weight:600;color:var(--text);}
-.form-group input,.form-group select{width:100%;box-sizing:border-box;}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-@media(max-width:600px){.form-row{grid-template-columns:1fr;}}
-
-/* 產品管理表格 */
+.compare-label{font-size:11px;color:var(--muted);margin-top:2px;}
+.table-wrapper{overflow-x:auto;margin:-20px;padding:20px;}
+table{width:100%;border-collapse:separate;border-spacing:0;font-size:14px;}
+th,td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--border);}
+thead th{position:sticky;top:0;background:var(--surface-2);color:var(--text-secondary);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;z-index:10;box-shadow:0 1px 0 var(--border);}
+thead th:first-child{left:0;z-index:11;box-shadow:2px 0 4px rgba(0,0,0,0.05),0 1px 0 var(--border);}
+tbody tr{transition:all 0.2s;}
+tbody tr:hover{background:var(--surface-hover);}
+tbody td{color:var(--text);}
+tbody td:first-child{position:sticky;left:0;background:var(--surface);font-weight:600;z-index:9;box-shadow:2px 0 4px rgba(0,0,0,0.05);}
+tbody tr:hover td:first-child{background:var(--surface-hover);}
+.is-best{background:linear-gradient(135deg,rgba(16,185,129,0.1),rgba(16,185,129,0.05));color:var(--good);font-weight:700;position:relative;}
+.is-best::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--good);}
 .product-table{font-size:13px;}
-.product-table th{background:var(--surface-2);font-weight:600;padding:8px;}
-.product-table td{padding:8px;}
-.product-table .action-btns{display:flex;gap:4px;}
-.search-box{margin-bottom:16px;position:relative;}
+.product-table th{background:var(--surface-2);font-weight:600;padding:12px;}
+.product-table td{padding:12px;}
+.product-table .action-btns{display:flex;gap:6px;}
+.search-box{margin-bottom:20px;position:relative;}
 .search-box input{padding-right:40px;}
-.search-box .search-icon{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--muted);}
-
-/* 深色主題 */
-:root[data-theme="dark"]{
-  --bg:#0b0d10;
-  --surface:#151a21;
-  --surface-2:#1d2430;
-  --text:#e8eef5;
-  --muted:#9fb0c3;
-  --accent:#2eaadc;
-  --good:#44d17a;
-  --danger:#ef4444;
-  --warning:#f59e0b;
-  --border:rgba(255,255,255,.1);
-  --shadow:0 6px 18px rgba(0,0,0,.28);
-  --radius:16px;
-}
-
-html, body, body *:not(svg):not(svg *){
-  color: var(--text);
-}
-
+.search-box .search-icon{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:18px;}
+.modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px);z-index:999;align-items:center;justify-content:center;padding:20px;animation:fadeIn 0.2s;}
+.modal.show{display:flex;}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+.modal-content{background:var(--surface);border-radius:var(--radius);max-width:900px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-lg);animation:slideUp 0.3s;}
+@keyframes slideUp{from{transform:translateY(20px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+.modal-header{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--surface-2);}
+.modal-header h2{margin:0;font-size:20px;font-weight:700;}
+.modal-body{padding:24px;}
+.modal-footer{padding:20px 24px;border-top:1px solid var(--border);display:flex;gap:12px;justify-content:flex-end;background:var(--surface-2);}
+.close-btn{background:none;border:none;font-size:28px;cursor:pointer;color:var(--muted);padding:0;width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-sm);transition:all 0.2s;}
+.close-btn:hover{background:var(--surface-hover);color:var(--text);}
+.form-group{margin-bottom:20px;}
+.form-group label{display:block;margin-bottom:8px;font-weight:600;color:var(--text);font-size:14px;}
+.form-group label span{color:var(--danger);margin-left:2px;}
+.form-group input,.form-group select{width:100%;box-sizing:border-box;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:600px){.form-row{grid-template-columns:1fr;}}
+.form-hint{font-size:12px;color:var(--muted);margin-top:4px;}
+.toast{position:fixed;right:20px;bottom:20px;background:var(--surface);border:1px solid var(--border);padding:14px 20px;border-radius:var(--radius);box-shadow:var(--shadow-lg);animation:slideInRight 0.3s;z-index:1000;max-width:320px;}
+@keyframes slideInRight{from{transform:translateX(100px);opacity:0;}to{transform:translateX(0);opacity:1;}}
+.empty-state{text-align:center;padding:60px 20px;color:var(--muted);}
+.empty-state-icon{font-size:48px;margin-bottom:16px;opacity:0.5;}
+.empty-state-text{font-size:16px;margin-bottom:8px;color:var(--text-secondary);}
+.empty-state-hint{font-size:14px;color:var(--muted);}
 @media(max-width:768px){
-  table{font-size:12px;}
-  th,td{padding:6px;}
-  .btn{padding:8px 12px;font-size:13px;}
+.container{padding:16px;}
+header{padding:16px;}
+h1{font-size:22px;}
+.header-actions{width:100%;}
+.btn{width:100%;justify-content:center;}
+.filter-grid{grid-template-columns:1fr;}
+table{font-size:12px;}
+th,td{padding:10px 12px;}
 }
+::-webkit-scrollbar{width:10px;height:10px;}
+::-webkit-scrollbar-track{background:var(--surface-2);}
+::-webkit-scrollbar-thumb{background:var(--muted);border-radius:5px;}
+::-webkit-scrollbar-thumb:hover{background:var(--text-secondary);}
 </style>
 </head>
 <body>
 <div class="container">
 <header>
-<div style="display:flex;align-items:center;gap:8px;">
-<h1>Kyleの投影機規格比較</h1>
-<div class="sub">v3.1 Pro</div>
+<div class="header-content">
+<div class="header-left">
+<h1>Kyleの投影機規格比較系統</h1>
+<span class="version-badge">v3.3</span>
 </div>
-<div class="row">
-<select id="langSel">
-<option value="zh">中文</option>
-<option value="en">English</option>
-<option value="ja">日本語</option>
+<div class="header-actions">
+<select id="langSel" class="btn secondary">
+<option value="zh">🇹🇼 中文</option>
+<option value="en">🇺🇸 English</option>
+<option value="ja">🇯🇵 日本語</option>
 </select>
-<button class="btn secondary" id="themeToggle" type="button">🌙 / ☀️</button>
-<button class="btn warning" id="manageProductsBtn" type="button">🛠️ 管理產品</button>
-<button class="btn" id="addProductBtn" type="button">➕ 新增產品</button>
-<button class="btn secondary" id="exportHtmlBtn" type="button">下載完整HTML</button>
-<button class="btn secondary" id="exportBtn" type="button">匯出 JSON</button>
-<label class="btn secondary">匯入 JSON<input accept="application/json" id="importInput" style="display:none" type="file"></label>
+<button class="btn secondary btn-icon" id="themeToggle" type="button">
+<span id="themeIcon">🌙</span>
+</button>
+<button class="btn warning btn-icon" id="manageProductsBtn" type="button">
+<span>🛠️</span>
+<span>管理產品</span>
+</button>
+<button class="btn btn-icon" id="addProductBtn" type="button">
+<span>➕</span>
+<span>新增產品</span>
+</button>
+<button class="btn secondary" id="exportHtmlBtn" type="button">下載HTML</button>
+<button class="btn secondary" id="exportBtn" type="button">匯出JSON</button>
+<label class="btn secondary">匯入JSON<input accept="application/json" id="importInput" style="display:none" type="file"></label>
+</div>
 </div>
 </header>
 <div class="grid">
-<aside class="card">
-<h2>篩選與選擇</h2>
-<div class="content">
-<div class="row">
-<div style="flex:1"><label>品牌</label><select id="brandSel"><option value="">全部</option></select></div>
-<div style="flex:1"><label>技術</label><select id="techSel"><option value="">全部</option></select></div>
+<aside>
+<div class="card">
+<div class="card-header">
+<h2>🔍 篩選與選擇</h2>
 </div>
-<div class="row" style="margin-top:8px">
-<div style="flex:1"><label>解析度</label><select id="resSel"><option value="">全部</option></select></div>
+<div class="card-content">
+<div class="sidebar-section">
+<div class="filter-grid">
+<div class="filter-item">
+<label class="section-label">品牌</label>
+<select id="brandSel"><option value="">全部</option><option>Appotronics</option><option>Barco</option><option>Christie</option><option>Coretronic</option><option>DP</option><option>Epson</option><option>Fujifilm</option><option>Panasonic</option><option>Sharp</option></select>
 </div>
-<hr>
-<div class="row">
-<select id="modelSel" style="flex:1"></select>
+<div class="filter-item">
+<label class="section-label">技術</label>
+<select id="techSel"><option value="">全部</option><option>1DLP</option><option>3DLP</option><option>3LCD</option><option>6DLP</option></select>
+</div>
+<div class="filter-item">
+<label class="section-label">解析度</label>
+<select id="resSel"><option value="">全部</option><option>4K (3840x2160)</option><option>4K (3840x2400)</option><option>Native 4K (4096x2160)</option><option>Native DC 4K (4096x2176)</option><option>WQXGA (2716x1600)</option><option>WUXGA (1920x1200)</option></select>
+</div>
+<div class="filter-item">
+<label class="section-label">亮度範圍</label>
+<select id="brightSel">
+<option value="">全部</option>
+<option value="0-9999">&lt;10000 lm</option>
+<option value="10000-19999">10000 - 20000 lm</option>
+<option value="20000-29999">20000 - 30000 lm</option>
+<option value="30000-999999">≥30000 lm</option>
+</select>
+</div>
+</div>
+<button class="btn clear-filters" id="clearFiltersBtn">
+<span>🔄</span>
+<span>清除所有篩選</span>
+</button>
+</div>
+<div class="divider"></div>
+<div class="sidebar-section highlight">
+<label class="section-label">📌 選擇產品</label>
+<div style="display:flex;gap:8px;">
+<select id="modelSel" style="flex:1"><option value="Christie-DWU2400-JS">DWU2400-JS</option><option value="Christie-DWU1800-JS">DWU1800-JS</option><option value="Christie-4K2100-JS">4K2100-JS</option><option value="Christie-4K1600-JS">4K1600-JS</option><option value="Christie-4K22-HS">4K22-HS</option><option value="Christie-4K13-HS">4K13-HS</option><option value="Christie-DWU23-HS">DWU23-HS</option><option value="Christie-DWU19-HS">DWU19-HS</option><option value="Christie-DWU15-HS">DWU15-HS</option><option value="Christie-4K10-HS">4K10-HS</option><option value="Christie-4K7-HS">4K7-HS</option><option value="Christie-DWU1400-GS">DWU1400-GS</option><option value="Christie-DWU1100-GS">DWU1100-GS</option><option value="Christie-DWU880-GS">DWU880-GS</option><option value="Christie-4K860-iS">4K860-iS</option><option value="Christie-DWU960-iS">DWU960-iS</option><option value="Christie-DWU860-iS">DWU860-iS</option><option value="Christie-DWU760-iS">DWU760-iS</option><option value="Christie-4K1400-KS">4K1400-KS</option><option value="Christie-4K1000-KS">4K1000-KS</option><option value="Christie-M 4K15">M 4K15</option><option value="Christie-M 4K+15">M 4K+15</option><option value="Christie-M 4K25">M 4K25</option><option value="Christie-M 4K+25">M 4K+25</option><option value="Christie-Griffyn 4K35-RGB">Griffyn 4K35-RGB</option><option value="Christie-Griffyn4K50-RGB">Griffyn4K50-RGB</option><option value="Christie-Sapphire 4K40-RGBH">Sapphire 4K40-RGBH</option><option value="Christie-Crimson WU31">Crimson WU31</option><option value="Christie-Eclipse G3">Eclipse G3</option><option value="Coretronic-H20K">H20K</option><option value="Panasonic-PT-HTQ20">PT-HTQ20</option><option value="Panasonic-PT-RQ7L">PT-RQ7L</option><option value="Panasonic-PT-RQ6L">PT-RQ6L</option><option value="Panasonic-PT-RZ7L">PT-RZ7L</option><option value="Panasonic-PT-RZ6L">PT-RZ6L</option><option value="Panasonic-PT-REQ15">PT-REQ15</option><option value="Panasonic-PT-REQ12">PT-REQ12</option><option value="Panasonic-PT-REQ10">PT-REQ10</option><option value="Panasonic-PT-REQ80">PT-REQ80</option><option value="Panasonic-PT-RQ25K">PT-RQ25K</option><option value="Panasonic-PT-RQ18K">PT-RQ18K</option><option value="Panasonic-PT-RZ24K">PT-RZ24K</option><option value="Panasonic-PT-RZ17K">PT-RZ17K</option><option value="Panasonic-PT-RZ14K">PT-RZ14K</option><option value="Panasonic-PT-RQ35K">PT-RQ35K</option><option value="Panasonic-PT-RZ34K">PT-RZ34K</option><option value="Panasonic-PT-RQ45K">PT-RQ45K</option><option value="Panasonic-PT-RZ44K">PT-RZ44K</option><option value="Panasonic-PT-RQ50K">PT-RQ50K</option><option value="Panasonic-PT-RZ120">PT-RZ120</option><option value="Panasonic-PT-MZ20KL">PT-MZ20KL</option><option value="Panasonic-PT-MZ17KL">PT-MZ17KL</option><option value="Panasonic-PT-MZ14KL">PT-MZ14KL</option><option value="Panasonic-PT-MZ11KL">PT-MZ11KL</option><option value="Panasonic-PT-VMZ82">PT-VMZ82</option><option value="Panasonic-PT-VMZ72">PT-VMZ72</option><option value="Panasonic-PT-VMZ62">PT-VMZ62</option><option value="Panasonic-PT-VMZ7ST">PT-VMZ7ST</option><option value="Panasonic-PT-VMZ6ST">PT-VMZ6ST</option><option value="DP-E-Vision 15000i 4K+">E-Vision 15000i 4K+</option><option value="DP-E-Vision 16000i WU">E-Vision 16000i WU</option><option value="DP-E-Vision 13500i WU">E-Vision 13500i WU</option><option value="DP-E-Vision 8000i WU">E-Vision 8000i WU</option><option value="DP-E-Vision 15000 WU">E-Vision 15000 WU</option><option value="DP-E-Vision 10000i WU">E-Vision 10000i WU</option><option value="DP-M-Vision 30000">M-Vision 30000</option><option value="DP-M-Vision 27000">M-Vision 27000</option><option value="DP-E-Vision 16000i">E-Vision 16000i</option><option value="DP-E-Vision 10000i 4K+ RGB">E-Vision 10000i 4K+ RGB</option><option value="DP-Titan 37000  WU">Titan 37000  WU</option><option value="DP-Titan 33000 4K-UHD">Titan 33000 4K-UHD</option><option value="DP-Titan 47000 WU">Titan 47000 WU</option><option value="DP-Titan 41000 4K-UHD">Titan 41000 4K-UHD</option><option value="Epson-EB-XQ2030B">EB-XQ2030B</option><option value="Epson-Pro L30000UNL">Pro L30000UNL</option><option value="Epson-EB-PU1006">EB-PU1006</option><option value="Epson-EB-PU1007">EB-PU1007</option><option value="Epson-EB-PU1008">EB-PU1008</option><option value="Epson-EB-PU2010">EB-PU2010</option><option value="Epson-EB-PU2213">EB-PU2213</option><option value="Epson-EB-PU2216">EB-PU2216</option><option value="Epson-EB-PU2220">EB-PU2220</option><option value="Epson-EB-PQ2008">EB-PQ2008</option><option value="Epson-EB-PQ2210">EB-PQ2210</option><option value="Epson-EB-PQ2213">EB-PQ2213</option><option value="Epson-EB-PQ2216">EB-PQ2216</option><option value="Epson-EB-PQ2220">EB-PQ2220</option><option value="Epson-PowerLite 890U">PowerLite 890U</option><option value="Epson-PowerLite L790U">PowerLite L790U</option><option value="Epson-PowerLite L690U">PowerLite L690U</option><option value="Epson-L20000UNL">L20000UNL</option><option value="Epson-EB-L1495U">EB-L1495U</option><option value="Barco-UDM‑4K15">UDM‑4K15</option><option value="Barco-UDM‑4K22">UDM‑4K22</option><option value="Barco-I600-4K8">I600-4K8</option><option value="Barco-I600-4K10">I600-4K10</option><option value="Barco-I600-4K15">I600-4K15</option><option value="Barco-G100‑W19">G100‑W19</option><option value="Barco-G100‑W22">G100‑W22</option><option value="Barco-G100‑W25">G100‑W25</option><option value="Barco-G62‑W9">G62‑W9</option><option value="Barco-G62‑W11">G62‑W11</option><option value="Barco-G62‑W14">G62‑W14</option><option value="Barco-F80‑Q12">F80‑Q12</option><option value="Barco-F80‑4K12">F80‑4K12</option><option value="Barco-QDX‑W35">QDX‑W35</option><option value="Barco-QDX‑4K35">QDX‑4K35</option><option value="Barco-QDX‑W45">QDX‑W45</option><option value="Barco-QDX‑4K45">QDX‑4K45</option><option value="Barco-QDX‑N4K25">QDX‑N4K25</option><option value="Barco-QDX‑N4K35">QDX‑N4K35</option><option value="Barco-QDX‑N4K45">QDX‑N4K45</option><option value="Sharp- A175U">A175U</option><option value="Sharp- A155U">A155U</option><option value="Sharp- A104U">A104U</option><option value="Sharp- A824U">A824U</option><option value="Sharp- A201U">A201U</option><option value="Sharp- V731U">V731U</option><option value="Sharp- V801U">V801U</option><option value="Sharp- P721Q">P721Q</option><option value="Sharp- P601Q">P601Q</option><option value="Sharp- PA1705UL">PA1705UL</option><option value="Sharp-PA1505UL">PA1505UL</option><option value="Sharp-XP-X141Q">XP-X141Q</option><option value="Sharp-XP-X171Q">XP-X171Q</option><option value="Appotronics-AL-SK15KS-1772521185551">AL-SK15KS</option><option value="Coretronic-H90-1772522900380">H90</option><option value="Coretronic-H90 - POC-1772534592537">H90 - POC</option><option value="Panasonic-PT-VMQ85-1772584048239">PT-VMQ85</option><option value="Panasonic-PT-VMQ75-1772584124434">PT-VMQ75</option><option value="Panasonic-PT-VMQ65-1772584201453">PT-VMQ65</option><option value="Fujifilm-FP-ZUH6000-1773102616238">FP-ZUH6000</option><option value="Fujifilm-FP-Z6000-1773102676097">FP-Z6000</option><option value="Fujifilm-FP-Z8000-1773102727390">FP-Z8000</option></select>
 <button class="btn" id="addColBtn">加入</button>
 </div>
-<hr>
-<details>
-<summary style="color:var(--muted);cursor:pointer">➕ 自定義尺寸</summary>
-<div class="row" style="margin-top:8px">
-<input id="cd_name" placeholder="名稱（可留白）" style="flex:1" type="text">
 </div>
-<div class="row" style="margin-top:8px">
-<input id="cd_w" placeholder="寬(mm)" type="number" min="1" style="flex:1">
-<input id="cd_d" placeholder="深(mm)" type="number" min="1" style="flex:1">
-<input id="cd_h" placeholder="高(mm)" type="number" min="1" style="flex:1">
+<div class="divider"></div>
+<div class="sidebar-section">
+<label class="section-label">已選產品</label>
+<div id="selectedList"><ul class="selected-list">
+      <li class="selected-item">
+        <span class="index">1</span>
+        <span class="name">Fujifilm FP-ZUH6000</span>
+        <div class="controls">
+          
+          <button class="btn small secondary move-btn" onclick="moveProduct(0, 1)" title="往下移">↓</button>
+          <button class="btn small danger delete-btn" onclick="removeProduct(0)" title="移除">✕</button>
+        </div>
+      </li>
+      <li class="selected-item">
+        <span class="index">2</span>
+        <span class="name">Fujifilm FP-Z6000</span>
+        <div class="controls">
+          <button class="btn small secondary move-btn" onclick="moveProduct(1, -1)" title="往上移">↑</button>
+          <button class="btn small secondary move-btn" onclick="moveProduct(1, 1)" title="往下移">↓</button>
+          <button class="btn small danger delete-btn" onclick="removeProduct(1)" title="移除">✕</button>
+        </div>
+      </li>
+      <li class="selected-item">
+        <span class="index">3</span>
+        <span class="name">Fujifilm FP-Z8000</span>
+        <div class="controls">
+          <button class="btn small secondary move-btn" onclick="moveProduct(2, -1)" title="往上移">↑</button>
+          
+          <button class="btn small danger delete-btn" onclick="removeProduct(2)" title="移除">✕</button>
+        </div>
+      </li></ul></div>
 </div>
-<button class="btn secondary" id="cd_add" style="width:100%;margin-top:8px">新增自定義尺寸</button>
-</details>
-<hr>
-<div id="selectedList" style="margin-top:12px;"></div>
-<button class="btn secondary" id="clearCols" style="width:100%">清除全部</button>
-
-<!-- 產品比較區塊 -->
-<div id="comparisonSection"></div>
+<button class="btn secondary" id="clearCols" style="width:100%;margin-top:12px;">清除全部</button>
+<div id="comparisonSection">
+    <div class="comparison-card">
+      <h3><span>📊</span> 體積比較</h3>
+      <div class="base-product-box">
+        <div class="base-product-label">基準產品</div>
+        <div class="base-product-name">Fujifilm FP-ZUH6000</div>
+        <div class="base-product-volume">體積: 42.2 L</div>
+      </div>
+  
+      <div class="compare-row">
+        <div class="compare-product-info">
+          <div class="compare-product-name">Fujifilm FP-Z6000</div>
+          <div class="compare-product-volume">38.2 L</div>
+        </div>
+        <div class="compare-result">
+          <div class="compare-value positive">
+            90.6%
+          </div>
+          <div class="compare-label">
+            是基準產品的 較小
+          </div>
+        </div>
+      </div>
+    
+      <div class="compare-row">
+        <div class="compare-product-info">
+          <div class="compare-product-name">Fujifilm FP-Z8000</div>
+          <div class="compare-product-volume">38.2 L</div>
+        </div>
+        <div class="compare-result">
+          <div class="compare-value positive">
+            90.6%
+          </div>
+          <div class="compare-label">
+            是基準產品的 較小
+          </div>
+        </div>
+      </div>
+    </div></div>
+</div>
 </div>
 </aside>
 <main class="card">
-<h2>規格比較表</h2>
-<div style="overflow-x:auto;">
-<div id="table"></div>
+<div class="card-header">
+<h2>📊 規格比較表</h2>
+</div>
+<div class="card-content">
+<div class="table-wrapper">
+<div id="table"><table><thead><tr><th>型號</th><th>Fujifilm<br><strong>FP-ZUH6000</strong></th><th>Fujifilm<br><strong>FP-Z6000</strong></th><th>Fujifilm<br><strong>FP-Z8000</strong></th></tr></thead><tbody><tr><td>技術</td><td class="">1DLP</td><td class="">1DLP</td><td class="">1DLP</td></tr><tr><td>面板尺寸</td><td class="">0.65"</td><td class="">0.67"</td><td class="">0.67"</td></tr><tr><td>亮度 (lm)</td><td class="">6,000</td><td class="">6,000</td><td class="is-best">8,000</td></tr><tr><td>解析度</td><td class="">4K UHD (3840x2160)</td><td class="">WUXGA (1920x1200)</td><td class="">WUXGA (1920x1200)</td></tr><tr><td>鏡頭</td><td class="">Fixed</td><td class="">Fixed</td><td class="">Fixed</td></tr><tr><td>功耗 (W)</td><td class="">650</td><td class="is-best">642</td><td class="">1,020</td></tr><tr><td>噪音 (dB)</td><td class="is-best">36</td><td class="">41</td><td class="">43</td></tr><tr><td>尺寸 (mm)</td><td class="">486×496×175</td><td class="">460×510×163</td><td class="">460×510×163</td></tr><tr><td>體積 (L)</td><td class="">42.2</td><td class="is-best">38.2</td><td class="">38.2</td></tr><tr><td>重量 (kg)</td><td class="is-best">17.5</td><td class="">17.5</td><td class="">18.4</td></tr><tr><td>效能比 (lm/W)</td><td class="">9.23</td><td class="">9.35</td><td class="">7.84</td></tr></tbody></table></div>
+</div>
 </div>
 </main>
 </div>
 </div>
-<div id="toastBox" style="display:none" class="toast"></div>
-
-<!-- 新增/編輯產品 Modal -->
+<div id="toastBox" style="display: none;" class="toast">已加入比較</div>
 <div id="productModal" class="modal">
 <div class="modal-content">
 <div class="modal-header">
@@ -202,15 +302,15 @@ html, body, body *:not(svg):not(svg *){
 </div>
 <div class="modal-body">
 <form id="productForm">
-<input type="hidden" id="edit_product_id">
+<input type="hidden" id="edit_product_id" value="">
 <div class="form-row">
 <div class="form-group">
-<label>品牌 *</label>
-<input type="text" id="product_brand" required placeholder="例如: Panasonic">
+<label>品牌 <span>*</span></label>
+<input type="text" id="product_brand" required="" placeholder="例如: Panasonic">
 </div>
 <div class="form-group">
-<label>型號 *</label>
-<input type="text" id="product_model" required placeholder="例如: PT-RQ45K">
+<label>型號 <span>*</span></label>
+<input type="text" id="product_model" required="" placeholder="例如: PT-RQ45K">
 </div>
 </div>
 <div class="form-row">
@@ -233,7 +333,7 @@ html, body, body *:not(svg):not(svg *){
 <label>解析度</label>
 <select id="product_resolution" onchange="handleResolutionChange()">
 <option value="">未指定</option>
-<option value="4K UHD (3840x2160)">4K UHD (3840x2160)</option>
+<option value="4K (3840x2160)">4K (3840x2160)</option>
 <option value="Native 4K (4096x2160)">Native 4K (4096x2160)</option>
 <option value="Native DC 4K (4096x2176)">Native DC 4K (4096x2176)</option>
 <option value="4K (3840x2400)">4K (3840x2400)</option>
@@ -241,16 +341,23 @@ html, body, body *:not(svg):not(svg *){
 <option value="WQXGA (2716x1600)">WQXGA (2716x1600)</option>
 <option value="custom">➕ 自訂解析度...</option>
 </select>
-<input type="text" id="product_resolution_custom" placeholder="請輸入自訂解析度" style="margin-top:8px;display:none;">
+<input type="text" id="product_resolution_custom" placeholder="請輸入自訂解析度" style="margin-top: 8px; display: none;">
+</div>
+<div class="form-group">
+<label>鏡頭類型</label>
+<select id="product_lens">
+<option value="Optional">Optional</option>
+<option value="Fixed">Fixed</option>
+</select>
 </div>
 <div class="form-row">
 <div class="form-group">
-<label>亮度 (lm) *</label>
-<input type="number" id="product_brightness" required placeholder="例如: 45000">
+<label>亮度 (lm) <span>*</span></label>
+<input type="number" id="product_brightness" required="" placeholder="例如: 45000">
 </div>
 <div class="form-group">
-<label>功耗 (W) *</label>
-<input type="number" id="product_power" required placeholder="例如: 3880">
+<label>功耗 (W)</label>
+<input type="number" id="product_power" placeholder="例如: 3880">
 </div>
 </div>
 <div class="form-row">
@@ -264,12 +371,13 @@ html, body, body *:not(svg):not(svg *){
 </div>
 </div>
 <div class="form-group">
-<label>尺寸 (mm) *</label>
+<label>尺寸 (mm) <span>*</span></label>
 <div class="form-row">
-<input type="number" id="product_w" required placeholder="寬 W">
-<input type="number" id="product_d" required placeholder="深 D">
-<input type="number" id="product_h" required placeholder="高 H">
+<input type="number" id="product_w" required="" placeholder="寬 W">
+<input type="number" id="product_d" required="" placeholder="深 D">
+<input type="number" id="product_h" required="" placeholder="高 H">
 </div>
+<div class="form-hint">請輸入投影機的外觀尺寸</div>
 </div>
 </form>
 </div>
@@ -279,18 +387,16 @@ html, body, body *:not(svg):not(svg *){
 </div>
 </div>
 </div>
-
-<!-- 管理產品 Modal -->
 <div id="manageModal" class="modal">
 <div class="modal-content" style="max-width:1200px;">
 <div class="modal-header">
-<h2>產品管理</h2>
+<h2>🛠️ 產品管理</h2>
 <button class="close-btn" onclick="closeManageModal()">×</button>
 </div>
 <div class="modal-body">
 <div class="search-box">
-<input type="text" id="searchProducts" placeholder="搜尋品牌或型號..." onkeyup="filterProducts()">
-<span class="search-icon">🔍</span>
+<input type="text" id="searchProducts" placeholder="🔍 搜尋品牌或型號..." onkeyup="filterProducts()">
+<span class="search-icon">⌕</span>
 </div>
 <div style="overflow-x:auto;">
 <table class="product-table">
@@ -307,7 +413,438 @@ html, body, body *:not(svg):not(svg *){
 </tr>
 </thead>
 <tbody id="productTableBody">
-</tbody>
+      <tr>
+        <td>Christie</td>
+        <td>Crimson WU31</td>
+        <td>3DLP</td>
+        <td style="font-size:12px;">WUXGA (1920x1200)</td>
+        <td>28,000</td>
+        <td>2,760</td>
+        <td style="font-size:12px;">635×957×302</td>
+        <td>
+          <div class="action-btns">
+            <button class="btn small secondary" onclick="editProduct('Christie-Crimson WU31')">✏️</button>
+            <button class="btn small danger" onclick="deleteProduct('Christie-Crimson WU31')">🗑️</button>
+          </div>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>Christie</td>
+        <td>Eclipse G3</td>
+        <td>6DLP</td>
+        <td style="font-size:12px;">Native 4K (4096x2160)</td>
+        <td>30,000</td>
+        <td>3,610</td>
+        <td style="font-size:12px;">711×1397×627</td>
+        <td>
+          <div class="action-btns">
+            <button class="btn small secondary" onclick="editProduct('Christie-Eclipse G3')">✏️</button>
+            <button class="btn small danger" onclick="deleteProduct('Christie-Eclipse G3')">🗑️</button>
+          </div>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>Christie</td>
+        <td>Griffyn 4K35-RGB</td>
+        <td>3DLP</td>
+        <td style="font-size:12px;">Native 4K (4096x2160)</td>
+        <td>32,500</td>
+        <td>1,800</td>
+        <td style="font-size:12px;">635×922×380</td>
+        <td>
+          <div class="action-btns">
+            <button class="btn small secondary" onclick="editProduct('Christie-Griffyn 4K35-RGB')">✏️</button>
+            <button class="btn small danger" onclick="deleteProduct('Christie-Griffyn 4K35-RGB')">🗑️</button>
+          </div>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>Christie</td>
+        <td>M 4K+15</td>
+        <td>3DLP</td>
+        <td style="font-size:12px;">4K (3840x2400)</td>
+        <td>14,000</td>
+        <td>827</td>
+        <td style="font-size:12px;">525×617×270</td>
+        <td>
+          <div class="action-btns">
+            <button class="btn small secondary" onclick="editProduct('Christie-M 4K+15')">✏️</button>
+            <button class="btn small danger" onclick="deleteProduct('Christie-M 4K+15')">🗑️</button>
+          </div>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>Christie</td>
+        <td>M 4K+25</td>
+        <td>3DLP</td>
+        <td style="font-size:12px;">4K (3840x2400)</td>
+        <td>22,500</td>
+        <td>1,540</td>
+        <td style="font-size:12px;">525×617×270</td>
+        <td>
+          <div class="action-btns">
+            <button class="btn small secondary" onclick="editProduct('Christie-M 4K+25')">✏️</button>
+            <button class="btn small danger" onclick="deleteProduct('Christie-M 4K+25')">🗑️</button>
+          </div>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>Christie</td>
+        <td>M 4K15</td>
+        <td>3DLP</td>
+        <td style="font-size:12px;">4K (3840x2160)</td>
+        <td>14,000</td>
+        <td>827</td>
+        <td style="font-size:12px;">525×617×270</td>
+        <td>
+          <div class="action-btns">
+            <button class="btn small secondary" onclick="editProduct('Christie-M 4K15')">✏️</button>
+            <button class="btn small danger" onclick="deleteProduct('Christie-M 4K15')">🗑️</button>
+          </div>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>Christie</td>
+        <td>M 4K25</td>
+        <td>3DLP</td>
+        <td style="font-size:12px;">4K (3840x2160)</td>
+        <td>22,500</td>
+        <td>1,540</td>
+        <td style="font-size:12px;">525×617×270</td>
+        <td>
+          <div class="action-btns">
+            <button class="btn small secondary" onclick="editProduct('Christie-M 4K25')">✏️</button>
+            <button class="btn small danger" onclick="deleteProduct('Christie-M 4K25')">🗑️</button>
+          </div>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>Christie</td>
+        <td>Sapphire 4K40-RGBH</td>
+        <td>3DLP</td>
+        <td style="font-size:12px;">Native 4K (4096x2160)</td>
+        <td>36,400</td>
+        <td>2,900</td>
+        <td style="font-size:12px;">635×922×380</td>
+        <td>
+          <div class="action-btns">
+            <button class="btn small secondary" onclick="editProduct('Christie-Sapphire 4K40-RGBH')">✏️</button>
+            <button class="btn small danger" onclick="deleteProduct('Christie-Sapphire 4K40-RGBH')">🗑️</button>
+          </div>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>Coretronic</td>
+        <td>H90 - POC</td>
+        <td>1DLP</td>
+        <td style="font-size:12px;">4K (3840x2400)</td>
+        <td>30,000</td>
+        <td>3,000</td>
+        <td style="font-size:12px;">650×670×310</td>
+        <td>
+          <div class="action-btns">
+            <button class="btn small secondary" onclick="editProduct('Coretronic-H90 - POC-1772534592537')">✏️</button>
+            <button class="btn small danger" onclick="deleteProduct('Coretronic-H90 - POC-1772534592537')">🗑️</button>
+          </div>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>DP</td>
+        <td>E-Vision 10000i 4K+ RGB</td>
+        <td>1DLP</td>
+        <td style="font-size:12px;">4K (3840x2400)</td>
+        <td>9,000</td>
+        <td>800</td>
+        <td style="font-size:12px;">500×598×218</td>
+        <td>
+          <div class="action-btns">
+            <button class="btn small secondary" onclick="editProduct('DP-E-Vision 10000i 4K+ RGB')">✏️</button>
+            <button class="btn small danger" onclick="deleteProduct('DP-E-Vision 10000i 4K+ RGB')">🗑️</button>
+          </div>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>DP</td>
+        <td>E-Vision 10000i WU</td>
+        <td>1DLP</td>
+        <td style="font-size:12px;">WUXGA (1920x1200)</td>
+        <td>9,000</td>
+        <td>583</td>
+        <td style="font-size:12px;">500×598×218</td>
+        <td>
+          <div class="action-btns">
+            <button class="btn small secondary" onclick="editProduct('DP-E-Vision 10000i WU')">✏️</button>
+            <button class="btn small danger" onclick="deleteProduct('DP-E-Vision 10000i WU')">🗑️</button>
+          </div>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>DP</td>
+        <td>E-Vision 13500i WU</td>
+        <td>1DLP</td>
+        <td style="font-size:12px;">WUXGA (1920x1200)</td>
+        <td>11,700</td>
+        <td>583</td>
+        <td style="font-size:12px;">500×598×218</td>
+        <td>
+          <div class="action-btns">
+            <button class="btn small secondary" onclick="editProduct('DP-E-Vision 13500i WU')">✏️</button>
+            <button class="btn small danger" onclick="deleteProduct('DP-E-Vision 13500i WU')">🗑️</button>
+          </div>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>DP</td>
+        <td>E-Vision 15000 WU</td>
+        <td>1DLP</td>
+        <td style="font-size:12px;">WUXGA (1920x1200)</td>
+        <td>13,500</td>
+        <td>1,570</td>
+        <td style="font-size:12px;">500×598×218</td>
+        <td>
+          <div class="action-btns">
+            <button class="btn small secondary" onclick="editProduct('DP-E-Vision 15000 WU')">✏️</button>
+            <button class="btn small danger" onclick="deleteProduct('DP-E-Vision 15000 WU')">🗑️</button>
+          </div>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>DP</td>
+        <td>E-Vision 15000i 4K+</td>
+        <td>1DLP</td>
+        <td style="font-size:12px;">4K (3840x2400)</td>
+        <td>13,500</td>
+        <td>990</td>
+        <td style="font-size:12px;">500×598×218</td>
+        <td>
+          <div class="action-btns">
+            <button class="btn small secondary" onclick="editProduct('DP-E-Vision 15000i 4K+')">✏️</button>
+            <button class="btn small danger" onclick="deleteProduct('DP-E-Vision 15000i 4K+')">🗑️</button>
+          </div>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>DP</td>
+        <td>E-Vision 16000i</td>
+        <td>1DLP</td>
+        <td style="font-size:12px;">WUXGA (1920x1200)</td>
+        <td>14,500</td>
+        <td>960</td>
+        <td style="font-size:12px;">500×598×218</td>
+        <td>
+          <div class="action-btns">
+            <button class="btn small secondary" onclick="editProduct('DP-E-Vision 16000i')">✏️</button>
+            <button class="btn small danger" onclick="deleteProduct('DP-E-Vision 16000i')">🗑️</button>
+          </div>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>DP</td>
+        <td>E-Vision 16000i WU</td>
+        <td>1DLP</td>
+        <td style="font-size:12px;">WUXGA (1920x1200)</td>
+        <td>14,500</td>
+        <td>900</td>
+        <td style="font-size:12px;">500×598×218</td>
+        <td>
+          <div class="action-btns">
+            <button class="btn small secondary" onclick="editProduct('DP-E-Vision 16000i WU')">✏️</button>
+            <button class="btn small danger" onclick="deleteProduct('DP-E-Vision 16000i WU')">🗑️</button>
+          </div>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>DP</td>
+        <td>E-Vision 8000i WU</td>
+        <td>1DLP</td>
+        <td style="font-size:12px;">WUXGA (1920x1200)</td>
+        <td>7,200</td>
+        <td>442</td>
+        <td style="font-size:12px;">500×598×218</td>
+        <td>
+          <div class="action-btns">
+            <button class="btn small secondary" onclick="editProduct('DP-E-Vision 8000i WU')">✏️</button>
+            <button class="btn small danger" onclick="deleteProduct('DP-E-Vision 8000i WU')">🗑️</button>
+          </div>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>DP</td>
+        <td>M-Vision 27000</td>
+        <td>1DLP</td>
+        <td style="font-size:12px;">WUXGA (1920x1200)</td>
+        <td>24,000</td>
+        <td>1,550</td>
+        <td style="font-size:12px;">598.8×669.4×302.75</td>
+        <td>
+          <div class="action-btns">
+            <button class="btn small secondary" onclick="editProduct('DP-M-Vision 27000')">✏️</button>
+            <button class="btn small danger" onclick="deleteProduct('DP-M-Vision 27000')">🗑️</button>
+          </div>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>DP</td>
+        <td>M-Vision 30000</td>
+        <td>1DLP</td>
+        <td style="font-size:12px;">WUXGA (1920x1200)</td>
+        <td>26,700</td>
+        <td>1,720</td>
+        <td style="font-size:12px;">598.8×669.4×302.75</td>
+        <td>
+          <div class="action-btns">
+            <button class="btn small secondary" onclick="editProduct('DP-M-Vision 30000')">✏️</button>
+            <button class="btn small danger" onclick="deleteProduct('DP-M-Vision 30000')">🗑️</button>
+          </div>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>DP</td>
+        <td>Titan 33000 4K-UHD</td>
+        <td>3DLP</td>
+        <td style="font-size:12px;">4K (3840x2160)</td>
+        <td>27,500</td>
+        <td>3,100</td>
+        <td style="font-size:12px;">650×969.3×397.3</td>
+        <td>
+          <div class="action-btns">
+            <button class="btn small secondary" onclick="editProduct('DP-Titan 33000 4K-UHD')">✏️</button>
+            <button class="btn small danger" onclick="deleteProduct('DP-Titan 33000 4K-UHD')">🗑️</button>
+          </div>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>DP</td>
+        <td>Titan 37000  WU</td>
+        <td>3DLP</td>
+        <td style="font-size:12px;">WUXGA (1920x1200)</td>
+        <td>33,000</td>
+        <td>3,100</td>
+        <td style="font-size:12px;">650×969.3×397.3</td>
+        <td>
+          <div class="action-btns">
+            <button class="btn small secondary" onclick="editProduct('DP-Titan 37000  WU')">✏️</button>
+            <button class="btn small danger" onclick="deleteProduct('DP-Titan 37000  WU')">🗑️</button>
+          </div>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>DP</td>
+        <td>Titan 41000 4K-UHD</td>
+        <td>3DLP</td>
+        <td style="font-size:12px;">4K (3840x2160)</td>
+        <td>36,000</td>
+        <td>3,650</td>
+        <td style="font-size:12px;">650×840×381</td>
+        <td>
+          <div class="action-btns">
+            <button class="btn small secondary" onclick="editProduct('DP-Titan 41000 4K-UHD')">✏️</button>
+            <button class="btn small danger" onclick="deleteProduct('DP-Titan 41000 4K-UHD')">🗑️</button>
+          </div>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>DP</td>
+        <td>Titan 47000 WU</td>
+        <td>3DLP</td>
+        <td style="font-size:12px;">WUXGA (1920x1200)</td>
+        <td>42,000</td>
+        <td>3,650</td>
+        <td style="font-size:12px;">650×840×381</td>
+        <td>
+          <div class="action-btns">
+            <button class="btn small secondary" onclick="editProduct('DP-Titan 47000 WU')">✏️</button>
+            <button class="btn small danger" onclick="deleteProduct('DP-Titan 47000 WU')">🗑️</button>
+          </div>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>Epson</td>
+        <td>PowerLite 890U</td>
+        <td>3LCD</td>
+        <td style="font-size:12px;">WUXGA (1920x1200)</td>
+        <td>8,000</td>
+        <td>470</td>
+        <td style="font-size:12px;">439.93×304.04×121.92</td>
+        <td>
+          <div class="action-btns">
+            <button class="btn small secondary" onclick="editProduct('Epson-PowerLite 890U')">✏️</button>
+            <button class="btn small danger" onclick="deleteProduct('Epson-PowerLite 890U')">🗑️</button>
+          </div>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>Epson</td>
+        <td>PowerLite L690U</td>
+        <td>3LCD</td>
+        <td style="font-size:12px;">WUXGA (1920x1200)</td>
+        <td>6,500</td>
+        <td>415</td>
+        <td style="font-size:12px;">439.93×304.04×121.92</td>
+        <td>
+          <div class="action-btns">
+            <button class="btn small secondary" onclick="editProduct('Epson-PowerLite L690U')">✏️</button>
+            <button class="btn small danger" onclick="deleteProduct('Epson-PowerLite L690U')">🗑️</button>
+          </div>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>Epson</td>
+        <td>PowerLite L790U</td>
+        <td>3LCD</td>
+        <td style="font-size:12px;">WUXGA (1920x1200)</td>
+        <td>7,300</td>
+        <td>415</td>
+        <td style="font-size:12px;">439.93×304.04×121.92</td>
+        <td>
+          <div class="action-btns">
+            <button class="btn small secondary" onclick="editProduct('Epson-PowerLite L790U')">✏️</button>
+            <button class="btn small danger" onclick="deleteProduct('Epson-PowerLite L790U')">🗑️</button>
+          </div>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>Epson</td>
+        <td>Pro L30000UNL</td>
+        <td>3LCD</td>
+        <td style="font-size:12px;">WUXGA (1920x1200)</td>
+        <td>30,000</td>
+        <td>2,325</td>
+        <td style="font-size:12px;">790×710×290</td>
+        <td>
+          <div class="action-btns">
+            <button class="btn small secondary" onclick="editProduct('Epson-Pro L30000UNL')">✏️</button>
+            <button class="btn small danger" onclick="deleteProduct('Epson-Pro L30000UNL')">🗑️</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
 </table>
 </div>
 </div>
@@ -316,30 +853,2442 @@ html, body, body *:not(svg):not(svg *){
 </div>
 </div>
 </div>
-
 <script>
 const $ = s => document.querySelector(s);
-let DATA = [{"id":"CHR-4K22-HS","brand":"Christie","model":"4K22-HS","tech":"3DLP","panel_size":"1.38\"","resolution_class":"Native 4K (4096x2160)","brightness_lm":22000,"power_w":2280,"weight_kg":63,"noise_db":50,"dims_mm":{"w":645,"d":826,"h":329}},{"id":"Epson-EB-PQ2010","brand":"Epson","model":"EB-PQ2010","tech":"3LCD","panel_size":"1.6\"","resolution_class":"4K (3840x2400)","brightness_lm":20000,"power_w":1680,"weight_kg":55,"noise_db":37,"dims_mm":{"w":635,"d":730,"h":320}},{"id":"Christie-DWU2400-JS","brand":"Christie","model":"DWU2400-JS","tech":"1DLP","panel_size":"0.96\" (DMD)","resolution_class":"WUXGA (1920x1200)","brightness_lm":24400,"power_w":1765,"weight_kg":41.5,"noise_db":38,"dims_mm":{"w":548,"d":679,"h":248}},{"id":"Christie-DWU1800-JS","brand":"Christie","model":"DWU1800-JS","tech":"1DLP","panel_size":"0.96\" (DMD)","resolution_class":"WUXGA (1920x1200)","brightness_lm":18400,"power_w":1405,"weight_kg":38,"noise_db":37,"dims_mm":{"w":548,"d":679,"h":248}},{"id":"Christie-4K2100-JS","brand":"Christie","model":"4K2100-JS","tech":"3DLP","panel_size":"0.96\" (DMD)","resolution_class":"Native DC 4K (4096x2176)","brightness_lm":21100,"power_w":1480,"weight_kg":47.5,"noise_db":41,"dims_mm":{"w":573,"d":755,"h":318}},{"id":"Christie-4K1600-JS","brand":"Christie","model":"4K1600-JS","tech":"3DLP","panel_size":"0.96\" (DMD)","resolution_class":"Native DC 4K (4096x2176)","brightness_lm":16100,"power_w":1230,"weight_kg":46,"noise_db":40,"dims_mm":{"w":573,"d":755,"h":318}},{"id":"Christie-4K22-HS","brand":"Christie","model":"4K22-HS","tech":"3DLP","panel_size":"1.38\"","resolution_class":"Native 4K (4096x2160)","brightness_lm":22000,"power_w":2280,"weight_kg":63,"noise_db":50,"dims_mm":{"w":645,"d":826,"h":329}},{"id":"Christie-4K13-HS","brand":"Christie","model":"4K13-HS","tech":"3DLP","panel_size":"1.38\"","resolution_class":"Native 4K (4096x2160)","brightness_lm":13400,"power_w":1455,"weight_kg":55,"noise_db":47,"dims_mm":{"w":645,"d":826,"h":329}},{"id":"Christie-DWU23-HS","brand":"Christie","model":"DWU23-HS","tech":"1DLP","panel_size":"0.96\" (DMD)","resolution_class":"WUXGA (1920x1200)","brightness_lm":23500,"power_w":1635,"weight_kg":43,"noise_db":45,"dims_mm":{"w":636,"d":766,"h":314}},{"id":"Christie-DWU19-HS","brand":"Christie","model":"DWU19-HS","tech":"1DLP","panel_size":"0.96\" (DMD)","resolution_class":"WUXGA (1920x1200)","brightness_lm":19200,"power_w":1425,"weight_kg":43,"noise_db":43,"dims_mm":{"w":636,"d":766,"h":314}},{"id":"Christie-DWU15-HS","brand":"Christie","model":"DWU15-HS","tech":"1DLP","panel_size":"0.96\" (DMD)","resolution_class":"WUXGA (1920x1200)","brightness_lm":15200,"power_w":1215,"weight_kg":43,"noise_db":42,"dims_mm":{"w":636,"d":766,"h":314}},{"id":"Christie-4K10-HS","brand":"Christie","model":"4K10-HS","tech":"3DLP","panel_size":"0.96\" (DMD)","resolution_class":"Native DC 4K (4096x2176)","brightness_lm":10400,"power_w":980,"weight_kg":51,"noise_db":37,"dims_mm":{"w":594,"d":709,"h":310}},{"id":"Christie-4K7-HS","brand":"Christie","model":"4K7-HS","tech":"3DLP","panel_size":"0.96\" (DMD)","resolution_class":"Native DC 4K (4096x2176)","brightness_lm":7400,"power_w":795,"weight_kg":48,"noise_db":35,"dims_mm":{"w":594,"d":709,"h":310}},{"id":"Christie-DWU1400-GS","brand":"Christie","model":"DWU1400-GS","tech":"1DLP","panel_size":"0.96\" (DMD)","resolution_class":"WUXGA (1920x1200)","brightness_lm":14600,"power_w":1130,"weight_kg":36,"noise_db":37,"dims_mm":{"w":548,"d":636,"h":248}},{"id":"Christie-DWU1100-GS","brand":"Christie","model":"DWU1100-GS","tech":"1DLP","panel_size":"0.96\" (DMD)","resolution_class":"WUXGA (1920x1200)","brightness_lm":11200,"power_w":910,"weight_kg":35,"noise_db":36,"dims_mm":{"w":548,"d":636,"h":248}},{"id":"Christie-DWU880-GS","brand":"Christie","model":"DWU880-GS","tech":"1DLP","panel_size":"0.96\" (DMD)","resolution_class":"WUXGA (1920x1200)","brightness_lm":8800,"power_w":740,"weight_kg":33,"noise_db":34,"dims_mm":{"w":548,"d":636,"h":248}},{"id":"Christie-4K860-iS","brand":"Christie","model":"4K860-iS","tech":"3DLP","panel_size":"0.70\" (DMD)","resolution_class":"Native DC 4K (4096x2176)","brightness_lm":8600,"power_w":910,"weight_kg":36,"noise_db":36,"dims_mm":{"w":548,"d":679,"h":248}},{"id":"Christie-DWU960-iS","brand":"Christie","model":"DWU960-iS","tech":"1DLP","panel_size":"0.96\" (DMD)","resolution_class":"WUXGA (1920x1200)","brightness_lm":9800,"power_w":840,"weight_kg":34,"noise_db":35,"dims_mm":{"w":548,"d":636,"h":248}},{"id":"Christie-DWU860-iS","brand":"Christie","model":"DWU860-iS","tech":"1DLP","panel_size":"0.96\" (DMD)","resolution_class":"WUXGA (1920x1200)","brightness_lm":8800,"power_w":740,"weight_kg":33,"noise_db":34,"dims_mm":{"w":548,"d":636,"h":248}},{"id":"Christie-DWU760-iS","brand":"Christie","model":"DWU760-iS","tech":"1DLP","panel_size":"0.96\" (DMD)","resolution_class":"WUXGA (1920x1200)","brightness_lm":7700,"power_w":665,"weight_kg":32.5,"noise_db":33,"dims_mm":{"w":548,"d":636,"h":248}},{"id":"Christie-4K1400-KS","brand":"Christie","model":"4K1400-KS","tech":"3DLP","panel_size":"0.96\" (DMD)","resolution_class":"Native DC 4K (4096x2176)","brightness_lm":14100,"power_w":1190,"weight_kg":46,"noise_db":40,"dims_mm":{"w":573,"d":755,"h":318}},{"id":"Christie-4K1000-KS","brand":"Christie","model":"4K1000-KS","tech":"3DLP","panel_size":"0.96\" (DMD)","resolution_class":"Native DC 4K (4096x2176)","brightness_lm":10400,"power_w":980,"weight_kg":51,"noise_db":37,"dims_mm":{"w":594,"d":709,"h":310}},{"id":"Christie-M 4K15","brand":"Christie","model":"M 4K15","tech":"3DLP","panel_size":"0.96\"","resolution_class":"Native DC 4K (4096x2176)","brightness_lm":15500,"power_w":1250,"weight_kg":48,"noise_db":40,"dims_mm":{"w":573,"d":755,"h":318}},{"id":"Christie-M 4K+15","brand":"Christie","model":"M 4K+15","tech":"3DLP","panel_size":"0.96\"","resolution_class":"Native DC 4K (4096x2176)","brightness_lm":16000,"power_w":1335,"weight_kg":48,"noise_db":40,"dims_mm":{"w":573,"d":755,"h":318}},{"id":"Christie-M 4K25","brand":"Christie","model":"M 4K25","tech":"3DLP","panel_size":"1.38\"","resolution_class":"Native DC 4K (4096x2176)","brightness_lm":25000,"power_w":2060,"weight_kg":63,"noise_db":47,"dims_mm":{"w":645,"d":826,"h":329}},{"id":"Christie-M 4K+25","brand":"Christie","model":"M 4K+25","tech":"3DLP","panel_size":"1.38\"","resolution_class":"Native DC 4K (4096x2176)","brightness_lm":27000,"power_w":2230,"weight_kg":63,"noise_db":48,"dims_mm":{"w":645,"d":826,"h":329}},{"id":"Christie-Griffyn 4K35-RGB","brand":"Christie","model":"Griffyn 4K35-RGB","tech":"6DLP","panel_size":"0.96\"","resolution_class":"Native DC 4K (4096x2176)","brightness_lm":35000,"power_w":3000,"weight_kg":115,"noise_db":50,"dims_mm":{"w":930,"d":826,"h":419}},{"id":"Christie-Griffyn4K50-RGB","brand":"Christie","model":"Griffyn4K50-RGB","tech":"6DLP","panel_size":"1.38\"","resolution_class":"Native DC 4K (4096x2176)","brightness_lm":50000,"power_w":4120,"weight_kg":137,"noise_db":54,"dims_mm":{"w":1031,"d":825,"h":428}},{"id":"Christie-Sapphire 4K40-RGBH","brand":"Christie","model":"Sapphire 4K40-RGBH","tech":"6DLP","panel_size":"1.38\"","resolution_class":"Native DC 4K (4096x2176)","brightness_lm":42000,"power_w":3760,"weight_kg":121,"noise_db":52,"dims_mm":{"w":997,"d":870,"h":397}},{"id":"Christie-Crimson WU31","brand":"Christie","model":"Crimson WU31","tech":"3DLP","panel_size":"1.38\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":31000,"power_w":2710,"weight_kg":66.5,"noise_db":53,"dims_mm":{"w":659,"d":825,"h":344}},{"id":"Christie-Eclipse G3","brand":"Christie","model":"Eclipse G3","tech":"3DLP","panel_size":null,"resolution_class":"Native DC 4K (4096x2176)","brightness_lm":60000,"power_w":5500,"weight_kg":295,"noise_db":57,"dims_mm":{"w":1250,"d":1200,"h":850}},{"id":"Coretronic-H20K","brand":"Coretronic","model":"H20K","tech":"3DLP","panel_size":"1.38\"","resolution_class":"UHD","brightness_lm":20000,"power_w":1730,"weight_kg":59,"noise_db":46,"dims_mm":{"w":624,"d":723,"h":318}},{"id":"Panasonic-PT-RQ7L","brand":"Panasonic","model":"PT-RQ7L","tech":"1DLP","panel_size":"0.70\" (DMD)","resolution_class":"4K UHD (3840x2160)","brightness_lm":7000,"power_w":690,"weight_kg":25,"noise_db":35,"dims_mm":{"w":498,"d":575,"h":230}},{"id":"Panasonic-PT-RQ6L","brand":"Panasonic","model":"PT-RQ6L","tech":"1DLP","panel_size":"0.70\" (DMD)","resolution_class":"4K UHD (3840x2160)","brightness_lm":6000,"power_w":630,"weight_kg":25,"noise_db":35,"dims_mm":{"w":498,"d":575,"h":230}},{"id":"Panasonic-PT-RZ7L","brand":"Panasonic","model":"PT-RZ7L","tech":"1DLP","panel_size":"0.64\" (DMD)","resolution_class":"WUXGA (1920x1200)","brightness_lm":7000,"power_w":690,"weight_kg":25,"noise_db":35,"dims_mm":{"w":498,"d":575,"h":230}},{"id":"Panasonic-PT-RZ6L","brand":"Panasonic","model":"PT-RZ6L","tech":"1DLP","panel_size":"0.64\" (DMD)","resolution_class":"WUXGA (1920x1200)","brightness_lm":6000,"power_w":630,"weight_kg":25,"noise_db":35,"dims_mm":{"w":498,"d":575,"h":230}},{"id":"Panasonic-PT-REQ15","brand":"Panasonic","model":"PT-REQ15","tech":"3LCD","panel_size":"1.50\"","resolution_class":"4K (3840x2400)","brightness_lm":15000,"power_w":1310,"weight_kg":49,"noise_db":33,"dims_mm":{"w":600,"d":677,"h":273}},{"id":"Panasonic-PT-REQ12","brand":"Panasonic","model":"PT-REQ12","tech":"3LCD","panel_size":"1.50\"","resolution_class":"4K (3840x2400)","brightness_lm":12000,"power_w":1105,"weight_kg":49,"noise_db":33,"dims_mm":{"w":600,"d":677,"h":273}},{"id":"Panasonic-PT-REQ10","brand":"Panasonic","model":"PT-REQ10","tech":"3LCD","panel_size":"1.50\"","resolution_class":"4K (3840x2400)","brightness_lm":10000,"power_w":955,"weight_kg":49,"noise_db":33,"dims_mm":{"w":600,"d":677,"h":273}},{"id":"Panasonic-PT-REQ80","brand":"Panasonic","model":"PT-REQ80","tech":"3LCD","panel_size":"1.50\"","resolution_class":"4K (3840x2400)","brightness_lm":8000,"power_w":760,"weight_kg":49,"noise_db":33,"dims_mm":{"w":600,"d":677,"h":273}},{"id":"Panasonic-PT-RQ25K","brand":"Panasonic","model":"PT-RQ25K","tech":"1DLP","panel_size":"1.38\" (DMD)","resolution_class":"4K UHD (3840x2160)","brightness_lm":25000,"power_w":2090,"weight_kg":56,"noise_db":49,"dims_mm":{"w":610,"d":780,"h":285}},{"id":"Panasonic-PT-RQ18K","brand":"Panasonic","model":"PT-RQ18K","tech":"1DLP","panel_size":"1.38\" (DMD)","resolution_class":"4K UHD (3840x2160)","brightness_lm":18000,"power_w":1575,"weight_kg":51,"noise_db":48,"dims_mm":{"w":610,"d":780,"h":285}},{"id":"Panasonic-PT-RZ24K","brand":"Panasonic","model":"PT-RZ24K","tech":"1DLP","panel_size":"1.38\" (DMD)","resolution_class":"WQXGA (2716x1600)","brightness_lm":24000,"power_w":1985,"weight_kg":56,"noise_db":49,"dims_mm":{"w":610,"d":780,"h":285}},{"id":"Panasonic-PT-RZ17K","brand":"Panasonic","model":"PT-RZ17K","tech":"1DLP","panel_size":"1.38\" (DMD)","resolution_class":"WQXGA (2716x1600)","brightness_lm":17500,"power_w":1550,"weight_kg":51,"noise_db":48,"dims_mm":{"w":610,"d":780,"h":285}},{"id":"Panasonic-PT-RZ14K","brand":"Panasonic","model":"PT-RZ14K","tech":"1DLP","panel_size":"1.38\" (DMD)","resolution_class":"WQXGA (2716x1600)","brightness_lm":14000,"power_w":1335,"weight_kg":51,"noise_db":47,"dims_mm":{"w":610,"d":780,"h":285}},{"id":"Panasonic-PT-RQ35K","brand":"Panasonic","model":"PT-RQ35K","tech":"3DLP","panel_size":"1.38\" (DMD)","resolution_class":"4K UHD (3840x2160)","brightness_lm":35000,"power_w":2990,"weight_kg":85,"noise_db":50,"dims_mm":{"w":750,"d":1000,"h":372}},{"id":"Panasonic-PT-RZ34K","brand":"Panasonic","model":"PT-RZ34K","tech":"3DLP","panel_size":"1.38\" (DMD)","resolution_class":"WQXGA (2716x1600)","brightness_lm":34500,"power_w":2990,"weight_kg":85,"noise_db":50,"dims_mm":{"w":750,"d":1000,"h":372}},{"id":"Panasonic-PT-RQ45K","brand":"Panasonic","model":"PT-RQ45K","tech":"3DLP","panel_size":"1.38\" (DMD)","resolution_class":"4K UHD (3840x2160)","brightness_lm":45000,"power_w":3880,"weight_kg":85,"noise_db":52,"dims_mm":{"w":750,"d":1000,"h":372}},{"id":"Panasonic-PT-RZ44K","brand":"Panasonic","model":"PT-RZ44K","tech":"3DLP","panel_size":"1.38\" (DMD)","resolution_class":"WQXGA (2716x1600)","brightness_lm":44000,"power_w":3880,"weight_kg":85,"noise_db":52,"dims_mm":{"w":750,"d":1000,"h":372}},{"id":"Panasonic-PT-RQ50K","brand":"Panasonic","model":"PT-RQ50K","tech":"3DLP","panel_size":"1.38\" (DMD)","resolution_class":"4K UHD (3840x2160)","brightness_lm":50000,"power_w":4200,"weight_kg":85,"noise_db":53,"dims_mm":{"w":750,"d":1000,"h":372}},{"id":"Panasonic-PT-RZ120","brand":"Panasonic","model":"PT-RZ120","tech":"1DLP","panel_size":"1.65\" (DMD)","resolution_class":"WUXGA (1920x1200)","brightness_lm":12000,"power_w":1150,"weight_kg":52,"noise_db":45,"dims_mm":{"w":605,"d":733,"h":281}},{"id":"Panasonic-PT-MZ20KL","brand":"Panasonic","model":"PT-MZ20KL","tech":"3LCD","panel_size":"1.50\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":20000,"power_w":1650,"weight_kg":50,"noise_db":39,"dims_mm":{"w":600,"d":677,"h":273}},{"id":"Panasonic-PT-MZ17KL","brand":"Panasonic","model":"PT-MZ17KL","tech":"3LCD","panel_size":"1.50\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":17000,"power_w":1460,"weight_kg":50,"noise_db":39,"dims_mm":{"w":600,"d":677,"h":273}},{"id":"Panasonic-PT-MZ14KL","brand":"Panasonic","model":"PT-MZ14KL","tech":"3LCD","panel_size":"1.50\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":14000,"power_w":1235,"weight_kg":50,"noise_db":39,"dims_mm":{"w":600,"d":677,"h":273}},{"id":"Panasonic-PT-MZ11KL","brand":"Panasonic","model":"PT-MZ11KL","tech":"3LCD","panel_size":"1.50\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":11000,"power_w":1025,"weight_kg":50,"noise_db":39,"dims_mm":{"w":600,"d":677,"h":273}},{"id":"Panasonic-PT-VMZ82","brand":"Panasonic","model":"PT-VMZ82","tech":"3LCD","panel_size":"0.76\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":8200,"power_w":608,"weight_kg":19,"noise_db":30,"dims_mm":{"w":500,"d":398,"h":163}},{"id":"Panasonic-PT-VMZ72","brand":"Panasonic","model":"PT-VMZ72","tech":"3LCD","panel_size":"0.76\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":7200,"power_w":560,"weight_kg":19,"noise_db":30,"dims_mm":{"w":500,"d":398,"h":163}},{"id":"Panasonic-PT-VMZ62","brand":"Panasonic","model":"PT-VMZ62","tech":"3LCD","panel_size":"0.76\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":6200,"power_w":515,"weight_kg":19,"noise_db":30,"dims_mm":{"w":500,"d":398,"h":163}},{"id":"Panasonic-PT-VMZ7ST","brand":"Panasonic","model":"PT-VMZ7ST","tech":"3LCD","panel_size":"0.76\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":7000,"power_w":548,"weight_kg":21.6,"noise_db":34,"dims_mm":{"w":500,"d":486,"h":199}},{"id":"Panasonic-PT-VMZ6ST","brand":"Panasonic","model":"PT-VMZ6ST","tech":"3LCD","panel_size":"0.76\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":6000,"power_w":503,"weight_kg":21.6,"noise_db":34,"dims_mm":{"w":500,"d":486,"h":199}},{"id":"DP-E-Vision 15000i 4K+","brand":"DP","model":"E-Vision 15000i 4K+","tech":"3DLP","panel_size":"0.96\"","resolution_class":"Native DC 4K (4096x2176)","brightness_lm":15000,"power_w":1320,"weight_kg":50,"noise_db":41,"dims_mm":{"w":573,"d":755,"h":318}},{"id":"DP-E-Vision 16000i WU","brand":"DP","model":"E-Vision 16000i WU","tech":"1DLP","panel_size":"0.96\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":16000,"power_w":1290,"weight_kg":37,"noise_db":38,"dims_mm":{"w":548,"d":679,"h":248}},{"id":"DP-E-Vision 13500i WU","brand":"DP","model":"E-Vision 13500i WU","tech":"1DLP","panel_size":"0.96\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":13500,"power_w":1080,"weight_kg":36,"noise_db":37,"dims_mm":{"w":548,"d":636,"h":248}},{"id":"DP-E-Vision 8000i WU","brand":"DP","model":"E-Vision 8000i WU","tech":"1DLP","panel_size":"0.96\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":8000,"power_w":680,"weight_kg":33,"noise_db":34,"dims_mm":{"w":548,"d":636,"h":248}},{"id":"DP-E-Vision 15000 WU","brand":"DP","model":"E-Vision 15000 WU","tech":"1DLP","panel_size":"0.96\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":15000,"power_w":1215,"weight_kg":37,"noise_db":37,"dims_mm":{"w":548,"d":679,"h":248}},{"id":"DP-E-Vision 10000i WU","brand":"DP","model":"E-Vision 10000i WU","tech":"1DLP","panel_size":"0.96\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":10000,"power_w":840,"weight_kg":34,"noise_db":35,"dims_mm":{"w":548,"d":636,"h":248}},{"id":"DP-M-Vision 30000","brand":"DP","model":"M-Vision 30000","tech":"3DLP","panel_size":"1.38\"","resolution_class":"Native DC 4K (4096x2176)","brightness_lm":30000,"power_w":2500,"weight_kg":66,"noise_db":49,"dims_mm":{"w":645,"d":826,"h":329}},{"id":"DP-M-Vision 27000","brand":"DP","model":"M-Vision 27000","tech":"3DLP","panel_size":"1.38\"","resolution_class":"Native DC 4K (4096x2176)","brightness_lm":27000,"power_w":2280,"weight_kg":66,"noise_db":49,"dims_mm":{"w":645,"d":826,"h":329}},{"id":"DP-E-Vision 16000i","brand":"DP","model":"E-Vision 16000i","tech":"3DLP","panel_size":"0.96\"","resolution_class":"Native DC 4K (4096x2176)","brightness_lm":16000,"power_w":1335,"weight_kg":48,"noise_db":40,"dims_mm":{"w":573,"d":755,"h":318}},{"id":"DP-E-Vision 10000i 4K+ RGB","brand":"DP","model":"E-Vision 10000i 4K+ RGB","tech":"6DLP","panel_size":"0.96\"","resolution_class":"Native DC 4K (4096x2176)","brightness_lm":10000,"power_w":980,"weight_kg":57,"noise_db":40,"dims_mm":{"w":594,"d":709,"h":310}},{"id":"DP-Titan 37000  WU","brand":"DP","model":"Titan 37000  WU","tech":"3DLP","panel_size":"1.38\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":37000,"power_w":3225,"weight_kg":67,"noise_db":53,"dims_mm":{"w":659,"d":825,"h":344}},{"id":"DP-Titan 33000 4K-UHD","brand":"DP","model":"Titan 33000 4K-UHD","tech":"3DLP","panel_size":"1.38\"","resolution_class":"Native 4K (4096x2160)","brightness_lm":33000,"power_w":2875,"weight_kg":66,"noise_db":52,"dims_mm":{"w":645,"d":826,"h":329}},{"id":"DP-Titan 47000 WU","brand":"DP","model":"Titan 47000 WU","tech":"3DLP","panel_size":"1.38\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":47000,"power_w":4085,"weight_kg":67,"noise_db":55,"dims_mm":{"w":659,"d":825,"h":344}},{"id":"DP-Titan 41000 4K-UHD","brand":"DP","model":"Titan 41000 4K-UHD","tech":"3DLP","panel_size":"1.38\"","resolution_class":"Native 4K (4096x2160)","brightness_lm":41000,"power_w":3575,"weight_kg":66,"noise_db":54,"dims_mm":{"w":645,"d":826,"h":329}},{"id":"Epson-Pro L30000UNL","brand":"Epson","model":"Pro L30000UNL","tech":"3LCD","panel_size":"1.8\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":30000,"power_w":2580,"weight_kg":79,"noise_db":40,"dims_mm":{"w":725,"d":914,"h":348}},{"id":"Epson-EB-PU1006","brand":"Epson","model":"EB-PU1006","tech":"3LCD","panel_size":"0.76\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":6000,"power_w":515,"weight_kg":19,"noise_db":30,"dims_mm":{"w":500,"d":398,"h":163}},{"id":"Epson-EB-PU1007","brand":"Epson","model":"EB-PU1007","tech":"3LCD","panel_size":"0.76\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":7000,"power_w":548,"weight_kg":19,"noise_db":30,"dims_mm":{"w":500,"d":398,"h":163}},{"id":"Epson-EB-PU1008","brand":"Epson","model":"EB-PU1008","tech":"3LCD","panel_size":"0.76\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":8000,"power_w":608,"weight_kg":19,"noise_db":30,"dims_mm":{"w":500,"d":398,"h":163}},{"id":"Epson-EB-PU2010","brand":"Epson","model":"EB-PU2010","tech":"3LCD","panel_size":"1.6\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":10000,"power_w":955,"weight_kg":55,"noise_db":37,"dims_mm":{"w":635,"d":730,"h":320}},{"id":"Epson-EB-PU2213","brand":"Epson","model":"EB-PU2213","tech":"3LCD","panel_size":"1.6\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":13000,"power_w":1260,"weight_kg":55,"noise_db":37,"dims_mm":{"w":635,"d":730,"h":320}},{"id":"Epson-EB-PU2216","brand":"Epson","model":"EB-PU2216","tech":"3LCD","panel_size":"1.6\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":16000,"power_w":1470,"weight_kg":55,"noise_db":37,"dims_mm":{"w":635,"d":730,"h":320}},{"id":"Epson-EB-PU2220","brand":"Epson","model":"EB-PU2220","tech":"3LCD","panel_size":"1.6\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":20000,"power_w":1680,"weight_kg":55,"noise_db":37,"dims_mm":{"w":635,"d":730,"h":320}},{"id":"Epson-EB-PQ2008","brand":"Epson","model":"EB-PQ2008","tech":"3LCD","panel_size":"1.6\"","resolution_class":"4K (3840x2400)","brightness_lm":8000,"power_w":760,"weight_kg":55,"noise_db":37,"dims_mm":{"w":635,"d":730,"h":320}},{"id":"Epson-EB-PQ2010","brand":"Epson","model":"EB-PQ2010","tech":"3LCD","panel_size":"1.6\"","resolution_class":"4K (3840x2400)","brightness_lm":10000,"power_w":955,"weight_kg":55,"noise_db":37,"dims_mm":{"w":635,"d":730,"h":320}},{"id":"Epson-EB-PQ2213","brand":"Epson","model":"EB-PQ2213","tech":"3LCD","panel_size":"1.6\"","resolution_class":"4K (3840x2400)","brightness_lm":13000,"power_w":1260,"weight_kg":55,"noise_db":37,"dims_mm":{"w":635,"d":730,"h":320}},{"id":"Epson-EB-PQ2216","brand":"Epson","model":"EB-PQ2216","tech":"3LCD","panel_size":"1.6\"","resolution_class":"4K (3840x2400)","brightness_lm":16000,"power_w":1470,"weight_kg":55,"noise_db":37,"dims_mm":{"w":635,"d":730,"h":320}},{"id":"Epson-EB-PQ2220","brand":"Epson","model":"EB-PQ2220","tech":"3LCD","panel_size":"1.6\"","resolution_class":"4K (3840x2400)","brightness_lm":20000,"power_w":1680,"weight_kg":55,"noise_db":37,"dims_mm":{"w":635,"d":730,"h":320}},{"id":"Epson-PowerLite 890U","brand":"Epson","model":"PowerLite 890U","tech":"3LCD","panel_size":"0.76\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":9000,"power_w":608,"weight_kg":19,"noise_db":30,"dims_mm":{"w":500,"d":398,"h":163}},{"id":"Epson-PowerLite L790U","brand":"Epson","model":"PowerLite L790U","tech":"3LCD","panel_size":"0.76\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":7000,"power_w":548,"weight_kg":19,"noise_db":30,"dims_mm":{"w":500,"d":398,"h":163}},{"id":"Epson-PowerLite L690U","brand":"Epson","model":"PowerLite L690U","tech":"3LCD","panel_size":"0.76\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":6000,"power_w":515,"weight_kg":19,"noise_db":30,"dims_mm":{"w":500,"d":398,"h":163}},{"id":"Epson-L20000UNL","brand":"Epson","model":"L20000UNL","tech":"3LCD","panel_size":"1.8\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":20000,"power_w":1760,"weight_kg":79,"noise_db":40,"dims_mm":{"w":725,"d":914,"h":348}},{"id":"Epson-EB-L1495U","brand":"Epson","model":"EB-L1495U","tech":"3LCD","panel_size":"0.76\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":9000,"power_w":608,"weight_kg":19,"noise_db":30,"dims_mm":{"w":500,"d":398,"h":163}},{"id":"Barco-UDM‑4K15","brand":"Barco","model":"UDM‑4K15","tech":"1DLP","panel_size":"1.38\"","resolution_class":"Native DC 4K (4096x2176)","brightness_lm":15000,"power_w":1335,"weight_kg":51,"noise_db":48,"dims_mm":{"w":610,"d":780,"h":285}},{"id":"Barco-UDM‑4K22","brand":"Barco","model":"UDM‑4K22","tech":"1DLP","panel_size":"1.38\"","resolution_class":"Native DC 4K (4096x2176)","brightness_lm":22000,"power_w":1985,"weight_kg":56,"noise_db":49,"dims_mm":{"w":610,"d":780,"h":285}},{"id":"Barco-I600-4K8","brand":"Barco","model":"I600-4K8","tech":"1DLP","panel_size":"0.70\"","resolution_class":"Native DC 4K (4096x2176)","brightness_lm":8000,"power_w":690,"weight_kg":25,"noise_db":35,"dims_mm":{"w":498,"d":575,"h":230}},{"id":"Barco-I600-4K10","brand":"Barco","model":"I600-4K10","tech":"1DLP","panel_size":"0.70\"","resolution_class":"Native DC 4K (4096x2176)","brightness_lm":10000,"power_w":840,"weight_kg":28,"noise_db":38,"dims_mm":{"w":498,"d":575,"h":230}},{"id":"Barco-I600-4K15","brand":"Barco","model":"I600-4K15","tech":"1DLP","panel_size":"0.96\"","resolution_class":"Native DC 4K (4096x2176)","brightness_lm":15000,"power_w":1250,"weight_kg":48,"noise_db":40,"dims_mm":{"w":573,"d":755,"h":318}},{"id":"Barco-G100‑W19","brand":"Barco","model":"G100‑W19","tech":"1DLP","panel_size":"1.38\"","resolution_class":"WQXGA (2716x1600)","brightness_lm":19000,"power_w":1695,"weight_kg":51,"noise_db":48,"dims_mm":{"w":610,"d":780,"h":285}},{"id":"Barco-G100‑W22","brand":"Barco","model":"G100‑W22","tech":"1DLP","panel_size":"1.38\"","resolution_class":"WQXGA (2716x1600)","brightness_lm":22000,"power_w":1985,"weight_kg":56,"noise_db":49,"dims_mm":{"w":610,"d":780,"h":285}},{"id":"Barco-G100‑W25","brand":"Barco","model":"G100‑W25","tech":"1DLP","panel_size":"1.38\"","resolution_class":"WQXGA (2716x1600)","brightness_lm":25000,"power_w":2090,"weight_kg":56,"noise_db":49,"dims_mm":{"w":610,"d":780,"h":285}},{"id":"Barco-G62‑W9","brand":"Barco","model":"G62‑W9","tech":"1DLP","panel_size":"0.70\"","resolution_class":"WQXGA (2716x1600)","brightness_lm":9000,"power_w":740,"weight_kg":25,"noise_db":35,"dims_mm":{"w":498,"d":575,"h":230}},{"id":"Barco-G62‑W11","brand":"Barco","model":"G62‑W11","tech":"1DLP","panel_size":"0.70\"","resolution_class":"WQXGA (2716x1600)","brightness_lm":11000,"power_w":910,"weight_kg":28,"noise_db":38,"dims_mm":{"w":498,"d":575,"h":230}},{"id":"Barco-G62‑W14","brand":"Barco","model":"G62‑W14","tech":"1DLP","panel_size":"0.96\"","resolution_class":"WQXGA (2716x1600)","brightness_lm":14000,"power_w":1190,"weight_kg":46,"noise_db":40,"dims_mm":{"w":573,"d":755,"h":318}},{"id":"Barco-F80‑Q12","brand":"Barco","model":"F80‑Q12","tech":"3DLP","panel_size":"0.96\"","resolution_class":"WQXGA (2716x1600)","brightness_lm":12000,"power_w":1050,"weight_kg":51,"noise_db":37,"dims_mm":{"w":594,"d":709,"h":310}},{"id":"Barco-F80‑4K12","brand":"Barco","model":"F80‑4K12","tech":"3DLP","panel_size":"0.96\"","resolution_class":"Native DC 4K (4096x2176)","brightness_lm":12000,"power_w":1050,"weight_kg":51,"noise_db":37,"dims_mm":{"w":594,"d":709,"h":310}},{"id":"Barco-QDX‑W35","brand":"Barco","model":"QDX‑W35","tech":"3DLP","panel_size":"1.38\"","resolution_class":"WQXGA (2716x1600)","brightness_lm":35000,"power_w":2990,"weight_kg":85,"noise_db":50,"dims_mm":{"w":750,"d":1000,"h":372}},{"id":"Barco-QDX‑4K35","brand":"Barco","model":"QDX‑4K35","tech":"3DLP","panel_size":"1.38\"","resolution_class":"Native DC 4K (4096x2176)","brightness_lm":35000,"power_w":2990,"weight_kg":85,"noise_db":50,"dims_mm":{"w":750,"d":1000,"h":372}},{"id":"Barco-QDX‑W45","brand":"Barco","model":"QDX‑W45","tech":"3DLP","panel_size":"1.38\"","resolution_class":"WQXGA (2716x1600)","brightness_lm":45000,"power_w":3880,"weight_kg":85,"noise_db":52,"dims_mm":{"w":750,"d":1000,"h":372}},{"id":"Barco-QDX‑4K45","brand":"Barco","model":"QDX‑4K45","tech":"3DLP","panel_size":"1.38\"","resolution_class":"Native DC 4K (4096x2176)","brightness_lm":45000,"power_w":3880,"weight_kg":85,"noise_db":52,"dims_mm":{"w":750,"d":1000,"h":372}},{"id":"Barco-QDX‑N4K25","brand":"Barco","model":"QDX‑N4K25","tech":"3DLP","panel_size":"1.38\"","resolution_class":"Native DC 4K (4096x2176)","brightness_lm":26000,"power_w":2210,"weight_kg":85,"noise_db":49,"dims_mm":{"w":750,"d":1000,"h":372}},{"id":"Barco-QDX‑N4K35","brand":"Barco","model":"QDX‑N4K35","tech":"3DLP","panel_size":"1.38\"","resolution_class":"Native DC 4K (4096x2176)","brightness_lm":35000,"power_w":2990,"weight_kg":85,"noise_db":50,"dims_mm":{"w":750,"d":1000,"h":372}},{"id":"Barco-QDX‑N4K45","brand":"Barco","model":"QDX‑N4K45","tech":"3DLP","panel_size":"1.38\"","resolution_class":"Native DC 4K (4096x2176)","brightness_lm":45000,"power_w":3880,"weight_kg":85,"noise_db":52,"dims_mm":{"w":750,"d":1000,"h":372}},{"id":"Sharp- A175U","brand":"Sharp","model":" A175U","tech":"1DLP","panel_size":"0.96\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":17000,"power_w":1455,"weight_kg":39,"noise_db":38,"dims_mm":{"w":548,"d":679,"h":248}},{"id":"Sharp- A155U","brand":"Sharp","model":" A155U","tech":"1DLP","panel_size":"0.96\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":15000,"power_w":1290,"weight_kg":37,"noise_db":38,"dims_mm":{"w":548,"d":679,"h":248}},{"id":"Sharp- A104U","brand":"Sharp","model":" A104U","tech":"1DLP","panel_size":"0.96\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":10000,"power_w":840,"weight_kg":34,"noise_db":35,"dims_mm":{"w":548,"d":636,"h":248}},{"id":"Sharp- A824U","brand":"Sharp","model":" A824U","tech":"1DLP","panel_size":"0.96\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":8000,"power_w":680,"weight_kg":33,"noise_db":34,"dims_mm":{"w":548,"d":636,"h":248}},{"id":"Sharp- A201U","brand":"Sharp","model":" A201U","tech":"1DLP","panel_size":"0.96\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":20000,"power_w":1635,"weight_kg":41.5,"noise_db":38,"dims_mm":{"w":548,"d":679,"h":248}},{"id":"Sharp- V731U","brand":"Sharp","model":" V731U","tech":"1DLP","panel_size":"0.67\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":7000,"power_w":630,"weight_kg":25,"noise_db":35,"dims_mm":{"w":498,"d":575,"h":230}},{"id":"Sharp- V801U","brand":"Sharp","model":" V801U","tech":"1DLP","panel_size":"0.67\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":8000,"power_w":690,"weight_kg":25,"noise_db":35,"dims_mm":{"w":498,"d":575,"h":230}},{"id":"Sharp- P721Q","brand":"Sharp","model":" P721Q","tech":"1DLP","panel_size":"0.67\"","resolution_class":"4K UHD (3840x2160)","brightness_lm":7000,"power_w":690,"weight_kg":25,"noise_db":35,"dims_mm":{"w":498,"d":575,"h":230}},{"id":"Sharp- P601Q","brand":"Sharp","model":" P601Q","tech":"1DLP","panel_size":"0.67\"","resolution_class":"4K UHD (3840x2160)","brightness_lm":6000,"power_w":630,"weight_kg":25,"noise_db":35,"dims_mm":{"w":498,"d":575,"h":230}},{"id":"Sharp- PA1705UL","brand":"Sharp","model":" PA1705UL","tech":"3LCD","panel_size":"1.50\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":17000,"power_w":1460,"weight_kg":50,"noise_db":39,"dims_mm":{"w":600,"d":677,"h":273}},{"id":"Sharp-PA1505UL","brand":"Sharp","model":"PA1505UL","tech":"3LCD","panel_size":"1.50\"","resolution_class":"WUXGA (1920x1200)","brightness_lm":15000,"power_w":1310,"weight_kg":50,"noise_db":39,"dims_mm":{"w":600,"d":677,"h":273}},{"id":"Sharp-XP-X141Q","brand":"Sharp","model":"XP-X141Q","tech":"3DLP","panel_size":"0.96\"","resolution_class":"Native DC 4K (4096x2176)","brightness_lm":14000,"power_w":1190,"weight_kg":46,"noise_db":40,"dims_mm":{"w":573,"d":755,"h":318}},{"id":"Sharp-XP-X171Q","brand":"Sharp","model":"XP-X171Q","tech":"3DLP","panel_size":"0.96\"","resolution_class":"Native DC 4K (4096x2176)","brightness_lm":17000,"power_w":1405,"weight_kg":48,"noise_db":40,"dims_mm":{"w":573,"d":755,"h":318}}];
+let DATA = [
+  {
+    "id": "Christie-DWU2400-JS",
+    "brand": "Christie",
+    "model": "DWU2400-JS",
+    "tech": "1DLP",
+    "panel_size": "0.8\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 20000,
+    "power_w": 1290,
+    "weight_kg": 29.4,
+    "noise_db": 45,
+    "dims_mm": {
+      "w": 520,
+      "d": 600,
+      "h": 193
+    }
+  },
+  {
+    "id": "Christie-DWU1800-JS",
+    "brand": "Christie",
+    "model": "DWU1800-JS",
+    "tech": "1DLP",
+    "panel_size": "0.8\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 15000,
+    "power_w": 930,
+    "weight_kg": 29.4,
+    "noise_db": 42,
+    "dims_mm": {
+      "w": 520,
+      "d": 600,
+      "h": 193
+    }
+  },
+  {
+    "id": "Christie-4K2100-JS",
+    "brand": "Christie",
+    "model": "4K2100-JS",
+    "tech": "1DLP",
+    "panel_size": "0.8\"",
+    "resolution_class": "4K (3840x2400)",
+    "lens_type": "Optional",
+    "brightness_lm": 18000,
+    "power_w": 1340,
+    "weight_kg": 29.4,
+    "noise_db": 47,
+    "dims_mm": {
+      "w": 520,
+      "d": 600,
+      "h": 193
+    }
+  },
+  {
+    "id": "Christie-4K1600-JS",
+    "brand": "Christie",
+    "model": "4K1600-JS",
+    "tech": "1DLP",
+    "panel_size": "0.8\"",
+    "resolution_class": "4K (3840x2400)",
+    "lens_type": "Optional",
+    "brightness_lm": 14000,
+    "power_w": 1020,
+    "weight_kg": 29.4,
+    "noise_db": 43,
+    "dims_mm": {
+      "w": 520,
+      "d": 600,
+      "h": 193
+    }
+  },
+  {
+    "id": "Christie-4K22-HS",
+    "brand": "Christie",
+    "model": "4K22-HS",
+    "tech": "1DLP",
+    "panel_size": "0.95\"",
+    "resolution_class": "4K (3840x2160)",
+    "lens_type": "Optional",
+    "brightness_lm": 19000,
+    "power_w": 1553,
+    "weight_kg": 43.5,
+    "noise_db": 45,
+    "dims_mm": {
+      "w": 596,
+      "d": 677,
+      "h": 203
+    }
+  },
+  {
+    "id": "Christie-4K13-HS",
+    "brand": "Christie",
+    "model": "4K13-HS",
+    "tech": "1DLP",
+    "panel_size": "0.95\"",
+    "resolution_class": "4K (3840x2160)",
+    "lens_type": "Optional",
+    "brightness_lm": 12500,
+    "power_w": 1030,
+    "weight_kg": 43.5,
+    "noise_db": 42,
+    "dims_mm": {
+      "w": 596,
+      "d": 677,
+      "h": 203
+    }
+  },
+  {
+    "id": "Christie-DWU23-HS",
+    "brand": "Christie",
+    "model": "DWU23-HS",
+    "tech": "1DLP",
+    "panel_size": "0.96\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 21000,
+    "power_w": 1604,
+    "weight_kg": 41.6,
+    "noise_db": 45,
+    "dims_mm": {
+      "w": 596,
+      "d": 677,
+      "h": 203
+    }
+  },
+  {
+    "id": "Christie-DWU19-HS",
+    "brand": "Christie",
+    "model": "DWU19-HS",
+    "tech": "1DLP",
+    "panel_size": "0.96\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 17000,
+    "power_w": 1270,
+    "weight_kg": 41.6,
+    "noise_db": 42,
+    "dims_mm": {
+      "w": 596,
+      "d": 677,
+      "h": 203
+    }
+  },
+  {
+    "id": "Christie-DWU15-HS",
+    "brand": "Christie",
+    "model": "DWU15-HS",
+    "tech": "1DLP",
+    "panel_size": "0.96\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 14000,
+    "power_w": 1030,
+    "weight_kg": 41.6,
+    "noise_db": 39,
+    "dims_mm": {
+      "w": 596,
+      "d": 677,
+      "h": 203
+    }
+  },
+  {
+    "id": "Christie-4K10-HS",
+    "brand": "Christie",
+    "model": "4K10-HS",
+    "tech": "1DLP",
+    "panel_size": "0.66\"",
+    "resolution_class": "4K (3840x2160)",
+    "lens_type": "Optional",
+    "brightness_lm": 10000,
+    "power_w": 1250,
+    "weight_kg": 34,
+    "noise_db": 39,
+    "dims_mm": {
+      "w": 520,
+      "d": 600,
+      "h": 214
+    }
+  },
+  {
+    "id": "Christie-4K7-HS",
+    "brand": "Christie",
+    "model": "4K7-HS",
+    "tech": "1DLP",
+    "panel_size": "0.66\"",
+    "resolution_class": "4K (3840x2160)",
+    "lens_type": "Optional",
+    "brightness_lm": 7000,
+    "power_w": 1056,
+    "weight_kg": 34,
+    "noise_db": 39,
+    "dims_mm": {
+      "w": 520,
+      "d": 600,
+      "h": 214
+    }
+  },
+  {
+    "id": "Christie-DWU1400-GS",
+    "brand": "Christie",
+    "model": "DWU1400-GS",
+    "tech": "1DLP",
+    "panel_size": "0.67\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 12000,
+    "power_w": 985,
+    "weight_kg": 22.8,
+    "noise_db": 40,
+    "dims_mm": {
+      "w": 480,
+      "d": 555,
+      "h": 190
+    }
+  },
+  {
+    "id": "Christie-DWU1100-GS",
+    "brand": "Christie",
+    "model": "DWU1100-GS",
+    "tech": "1DLP",
+    "panel_size": "0.67\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 10000,
+    "power_w": 800,
+    "weight_kg": 22.8,
+    "noise_db": 38,
+    "dims_mm": {
+      "w": 480,
+      "d": 555,
+      "h": 190
+    }
+  },
+  {
+    "id": "Christie-DWU880-GS",
+    "brand": "Christie",
+    "model": "DWU880-GS",
+    "tech": "1DLP",
+    "panel_size": "0.67\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 8000,
+    "power_w": 620,
+    "weight_kg": 19,
+    "noise_db": 38,
+    "dims_mm": {
+      "w": 480,
+      "d": 555,
+      "h": 190
+    }
+  },
+  {
+    "id": "Christie-4K860-iS",
+    "brand": "Christie",
+    "model": "4K860-iS",
+    "tech": "1DLP",
+    "panel_size": "0.65\"",
+    "resolution_class": "4K (3840x2160)",
+    "lens_type": "Optional",
+    "brightness_lm": 7200,
+    "power_w": 530,
+    "weight_kg": 15,
+    "noise_db": 36,
+    "dims_mm": {
+      "w": 480,
+      "d": 406,
+      "h": 157
+    }
+  },
+  {
+    "id": "Christie-DWU960-iS",
+    "brand": "Christie",
+    "model": "DWU960-iS",
+    "tech": "1DLP",
+    "panel_size": "0.67\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 8100,
+    "power_w": 620,
+    "weight_kg": 13.7,
+    "noise_db": 36,
+    "dims_mm": {
+      "w": 480,
+      "d": 406,
+      "h": 157
+    }
+  },
+  {
+    "id": "Christie-DWU860-iS",
+    "brand": "Christie",
+    "model": "DWU860-iS",
+    "tech": "1DLP",
+    "panel_size": "0.67\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 7200,
+    "power_w": 620,
+    "weight_kg": 13.7,
+    "noise_db": 34,
+    "dims_mm": {
+      "w": 480,
+      "d": 406,
+      "h": 157
+    }
+  },
+  {
+    "id": "Christie-DWU760-iS",
+    "brand": "Christie",
+    "model": "DWU760-iS",
+    "tech": "1DLP",
+    "panel_size": "0.67\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 6000,
+    "power_w": 470,
+    "weight_kg": 13.5,
+    "noise_db": 30,
+    "dims_mm": {
+      "w": 480,
+      "d": 406,
+      "h": 157
+    }
+  },
+  {
+    "id": "Christie-4K1400-KS",
+    "brand": "Christie",
+    "model": "4K1400-KS",
+    "tech": "1DLP",
+    "panel_size": "0.8\"",
+    "resolution_class": "4K (3840x2400)",
+    "lens_type": "Optional",
+    "brightness_lm": 12000,
+    "power_w": 850,
+    "weight_kg": 17,
+    "noise_db": 38,
+    "dims_mm": {
+      "w": 535,
+      "d": 396,
+      "h": 173
+    }
+  },
+  {
+    "id": "Christie-4K1000-KS",
+    "brand": "Christie",
+    "model": "4K1000-KS",
+    "tech": "1DLP",
+    "panel_size": "0.8\"",
+    "resolution_class": "4K (3840x2400)",
+    "lens_type": "Optional",
+    "brightness_lm": 8500,
+    "power_w": 850,
+    "weight_kg": 17,
+    "noise_db": 38,
+    "dims_mm": {
+      "w": 535,
+      "d": 396,
+      "h": 173
+    }
+  },
+  {
+    "id": "Christie-M 4K15",
+    "brand": "Christie",
+    "model": "M 4K15",
+    "tech": "3DLP",
+    "panel_size": "0.95\"",
+    "resolution_class": "4K (3840x2160)",
+    "lens_type": "Optional",
+    "brightness_lm": 14000,
+    "power_w": 827,
+    "weight_kg": 38.1,
+    "noise_db": 43.8,
+    "dims_mm": {
+      "w": 525,
+      "d": 617,
+      "h": 270
+    }
+  },
+  {
+    "id": "Christie-M 4K+15",
+    "brand": "Christie",
+    "model": "M 4K+15",
+    "tech": "3DLP",
+    "panel_size": "0.96\"",
+    "resolution_class": "4K (3840x2400)",
+    "lens_type": "Optional",
+    "brightness_lm": 14000,
+    "power_w": 827,
+    "weight_kg": 38.1,
+    "noise_db": 43.8,
+    "dims_mm": {
+      "w": 525,
+      "d": 617,
+      "h": 270
+    }
+  },
+  {
+    "id": "Christie-M 4K25",
+    "brand": "Christie",
+    "model": "M 4K25",
+    "tech": "3DLP",
+    "panel_size": "0.95\"",
+    "resolution_class": "4K (3840x2160)",
+    "lens_type": "Optional",
+    "brightness_lm": 22500,
+    "power_w": 1540,
+    "weight_kg": 41.7,
+    "noise_db": 49.4,
+    "dims_mm": {
+      "w": 525,
+      "d": 617,
+      "h": 270
+    }
+  },
+  {
+    "id": "Christie-M 4K+25",
+    "brand": "Christie",
+    "model": "M 4K+25",
+    "tech": "3DLP",
+    "panel_size": "0.96\"",
+    "resolution_class": "4K (3840x2400)",
+    "lens_type": "Optional",
+    "brightness_lm": 22500,
+    "power_w": 1540,
+    "weight_kg": 41.7,
+    "noise_db": 49.4,
+    "dims_mm": {
+      "w": 525,
+      "d": 617,
+      "h": 270
+    }
+  },
+  {
+    "id": "Christie-Griffyn 4K35-RGB",
+    "brand": "Christie",
+    "model": "Griffyn 4K35-RGB",
+    "tech": "3DLP",
+    "panel_size": "1.38\"",
+    "resolution_class": "Native 4K (4096x2160)",
+    "lens_type": "Optional",
+    "brightness_lm": 32500,
+    "power_w": 1800,
+    "weight_kg": 81,
+    "noise_db": 44.5,
+    "dims_mm": {
+      "w": 635,
+      "d": 922,
+      "h": 380
+    }
+  },
+  {
+    "id": "Christie-Griffyn4K50-RGB",
+    "brand": "Christie",
+    "model": "Griffyn4K50-RGB",
+    "tech": "3DLP",
+    "panel_size": "1.38\"",
+    "resolution_class": "Native 4K (4096x2160)",
+    "lens_type": "Optional",
+    "brightness_lm": 44500,
+    "power_w": 2800,
+    "weight_kg": 89.3,
+    "noise_db": 54,
+    "dims_mm": {
+      "w": 635,
+      "d": 922,
+      "h": 380
+    }
+  },
+  {
+    "id": "Christie-Sapphire 4K40-RGBH",
+    "brand": "Christie",
+    "model": "Sapphire 4K40-RGBH",
+    "tech": "3DLP",
+    "panel_size": "1.38\"",
+    "resolution_class": "Native 4K (4096x2160)",
+    "lens_type": "Optional",
+    "brightness_lm": 36400,
+    "power_w": 2900,
+    "weight_kg": 92,
+    "noise_db": 58.4,
+    "dims_mm": {
+      "w": 635,
+      "d": 922,
+      "h": 380
+    }
+  },
+  {
+    "id": "Christie-Crimson WU31",
+    "brand": "Christie",
+    "model": "Crimson WU31",
+    "tech": "3DLP",
+    "panel_size": "0.96\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 28000,
+    "power_w": 2760,
+    "weight_kg": 80.2,
+    "noise_db": 51,
+    "dims_mm": {
+      "w": 635,
+      "d": 957,
+      "h": 302
+    }
+  },
+  {
+    "id": "Christie-Eclipse G3",
+    "brand": "Christie",
+    "model": "Eclipse G3",
+    "tech": "6DLP",
+    "panel_size": "1.38\"",
+    "resolution_class": "Native 4K (4096x2160)",
+    "lens_type": "Optional",
+    "brightness_lm": 30000,
+    "power_w": 3610,
+    "weight_kg": 186,
+    "noise_db": 45,
+    "dims_mm": {
+      "w": 711,
+      "d": 1397,
+      "h": 627
+    }
+  },
+  {
+    "id": "Coretronic-H20K",
+    "brand": "Coretronic",
+    "model": "H20K",
+    "tech": "1DLP",
+    "panel_size": "0.8\"",
+    "resolution_class": "4K (3840x2400)",
+    "lens_type": "Optional",
+    "brightness_lm": 8500,
+    "power_w": 580,
+    "weight_kg": 12,
+    "noise_db": 36,
+    "dims_mm": {
+      "w": 486,
+      "d": 315,
+      "h": 155
+    }
+  },
+  {
+    "id": "Panasonic-PT-HTQ20",
+    "brand": "Panasonic",
+    "model": "PT-HTQ20",
+    "tech": "1DLP",
+    "panel_size": "0.96\"",
+    "resolution_class": "4K (3840x2400)",
+    "lens_type": "Optional",
+    "brightness_lm": 20000,
+    "power_w": null,
+    "weight_kg": 38,
+    "noise_db": null,
+    "dims_mm": {
+      "w": 590,
+      "d": 600,
+      "h": 220
+    }
+  },
+  {
+    "id": "Panasonic-PT-RQ7L",
+    "brand": "Panasonic",
+    "model": "PT-RQ7L",
+    "tech": "1DLP",
+    "panel_size": "0.65\"",
+    "resolution_class": "4K (3840x2160)",
+    "lens_type": "Optional",
+    "brightness_lm": 7500,
+    "power_w": 670,
+    "weight_kg": 16.6,
+    "noise_db": 35,
+    "dims_mm": {
+      "w": 498,
+      "d": 440,
+      "h": 170
+    }
+  },
+  {
+    "id": "Panasonic-PT-RQ6L",
+    "brand": "Panasonic",
+    "model": "PT-RQ6L",
+    "tech": "1DLP",
+    "panel_size": "0.65\"",
+    "resolution_class": "4K (3840x2160)",
+    "lens_type": "Optional",
+    "brightness_lm": 6500,
+    "power_w": 600,
+    "weight_kg": 16.6,
+    "noise_db": 34,
+    "dims_mm": {
+      "w": 498,
+      "d": 440,
+      "h": 170
+    }
+  },
+  {
+    "id": "Panasonic-PT-RZ7L",
+    "brand": "Panasonic",
+    "model": "PT-RZ7L",
+    "tech": "1DLP",
+    "panel_size": "0.67\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 7500,
+    "power_w": 660,
+    "weight_kg": 16.6,
+    "noise_db": 35,
+    "dims_mm": {
+      "w": 498,
+      "d": 440,
+      "h": 170
+    }
+  },
+  {
+    "id": "Panasonic-PT-RZ6L",
+    "brand": "Panasonic",
+    "model": "PT-RZ6L",
+    "tech": "1DLP",
+    "panel_size": "0.67\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 6500,
+    "power_w": 590,
+    "weight_kg": 16.6,
+    "noise_db": 34,
+    "dims_mm": {
+      "w": 498,
+      "d": 440,
+      "h": 170
+    }
+  },
+  {
+    "id": "Panasonic-PT-REQ15",
+    "brand": "Panasonic",
+    "model": "PT-REQ15",
+    "tech": "1DLP",
+    "panel_size": "0.8\"",
+    "resolution_class": "4K (3840x2400)",
+    "lens_type": "Optional",
+    "brightness_lm": 15000,
+    "power_w": 1090,
+    "weight_kg": 27,
+    "noise_db": 42,
+    "dims_mm": {
+      "w": 498,
+      "d": 538,
+      "h": 212
+    }
+  },
+  {
+    "id": "Panasonic-PT-REQ12",
+    "brand": "Panasonic",
+    "model": "PT-REQ12",
+    "tech": "1DLP",
+    "panel_size": "0.8\"",
+    "resolution_class": "4K (3840x2400)",
+    "lens_type": "Optional",
+    "brightness_lm": 12000,
+    "power_w": 990,
+    "weight_kg": 27,
+    "noise_db": 38,
+    "dims_mm": {
+      "w": 498,
+      "d": 538,
+      "h": 212
+    }
+  },
+  {
+    "id": "Panasonic-PT-REQ10",
+    "brand": "Panasonic",
+    "model": "PT-REQ10",
+    "tech": "1DLP",
+    "panel_size": "0.8\"",
+    "resolution_class": "4K (3840x2400)",
+    "lens_type": "Optional",
+    "brightness_lm": 10000,
+    "power_w": 840,
+    "weight_kg": 27,
+    "noise_db": 36,
+    "dims_mm": {
+      "w": 498,
+      "d": 538,
+      "h": 212
+    }
+  },
+  {
+    "id": "Panasonic-PT-REQ80",
+    "brand": "Panasonic",
+    "model": "PT-REQ80",
+    "tech": "1DLP",
+    "panel_size": "0.8\"",
+    "resolution_class": "4K (3840x2400)",
+    "lens_type": "Optional",
+    "brightness_lm": 8000,
+    "power_w": 730,
+    "weight_kg": 27,
+    "noise_db": 35,
+    "dims_mm": {
+      "w": 498,
+      "d": 538,
+      "h": 212
+    }
+  },
+  {
+    "id": "Panasonic-PT-RQ25K",
+    "brand": "Panasonic",
+    "model": "PT-RQ25K",
+    "tech": "3DLP",
+    "panel_size": "0.8\"",
+    "resolution_class": "4K (3840x2400)",
+    "lens_type": "Optional",
+    "brightness_lm": 20000,
+    "power_w": 1330,
+    "weight_kg": 35,
+    "noise_db": 46,
+    "dims_mm": {
+      "w": 550,
+      "d": 570,
+      "h": 220
+    }
+  },
+  {
+    "id": "Panasonic-PT-RQ18K",
+    "brand": "Panasonic",
+    "model": "PT-RQ18K",
+    "tech": "3DLP",
+    "panel_size": "0.8\"",
+    "resolution_class": "4K (3840x2400)",
+    "lens_type": "Optional",
+    "brightness_lm": 16000,
+    "power_w": 1030,
+    "weight_kg": 35,
+    "noise_db": 43,
+    "dims_mm": {
+      "w": 550,
+      "d": 570,
+      "h": 220
+    }
+  },
+  {
+    "id": "Panasonic-PT-RZ24K",
+    "brand": "Panasonic",
+    "model": "PT-RZ24K",
+    "tech": "3DLP",
+    "panel_size": "0.8\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 20000,
+    "power_w": 1310,
+    "weight_kg": 35,
+    "noise_db": 46,
+    "dims_mm": {
+      "w": 550,
+      "d": 570,
+      "h": 220
+    }
+  },
+  {
+    "id": "Panasonic-PT-RZ17K",
+    "brand": "Panasonic",
+    "model": "PT-RZ17K",
+    "tech": "3DLP",
+    "panel_size": "0.8\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 16000,
+    "power_w": 1010,
+    "weight_kg": 35,
+    "noise_db": 43,
+    "dims_mm": {
+      "w": 550,
+      "d": 570,
+      "h": 220
+    }
+  },
+  {
+    "id": "Panasonic-PT-RZ14K",
+    "brand": "Panasonic",
+    "model": "PT-RZ14K",
+    "tech": "3DLP",
+    "panel_size": "0.8\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 14000,
+    "power_w": 950,
+    "weight_kg": 35,
+    "noise_db": 40,
+    "dims_mm": {
+      "w": 550,
+      "d": 570,
+      "h": 220
+    }
+  },
+  {
+    "id": "Panasonic-PT-RQ35K",
+    "brand": "Panasonic",
+    "model": "PT-RQ35K",
+    "tech": "3DLP",
+    "panel_size": "0.96\"",
+    "resolution_class": "4K (3840x2400)",
+    "lens_type": "Optional",
+    "brightness_lm": 30500,
+    "power_w": 2060,
+    "weight_kg": 69.8,
+    "noise_db": 49,
+    "dims_mm": {
+      "w": 598,
+      "d": 780,
+      "h": 353
+    }
+  },
+  {
+    "id": "Panasonic-PT-RZ34K",
+    "brand": "Panasonic",
+    "model": "PT-RZ34K",
+    "tech": "3DLP",
+    "panel_size": "0.96\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 30500,
+    "power_w": 2010,
+    "weight_kg": 68.6,
+    "noise_db": 49,
+    "dims_mm": {
+      "w": 598,
+      "d": 780,
+      "h": 353
+    }
+  },
+  {
+    "id": "Panasonic-PT-RQ45K",
+    "brand": "Panasonic",
+    "model": "PT-RQ45K",
+    "tech": "3DLP",
+    "panel_size": "0.96\"",
+    "resolution_class": "4K (3840x2400)",
+    "lens_type": "Optional",
+    "brightness_lm": 42000,
+    "power_w": 2860,
+    "weight_kg": 66,
+    "noise_db": 49,
+    "dims_mm": {
+      "w": 598,
+      "d": 780,
+      "h": 352
+    }
+  },
+  {
+    "id": "Panasonic-PT-RZ44K",
+    "brand": "Panasonic",
+    "model": "PT-RZ44K",
+    "tech": "3DLP",
+    "panel_size": "0.96\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 42000,
+    "power_w": 2850,
+    "weight_kg": 66,
+    "noise_db": 49,
+    "dims_mm": {
+      "w": 598,
+      "d": 780,
+      "h": 352
+    }
+  },
+  {
+    "id": "Panasonic-PT-RQ50K",
+    "brand": "Panasonic",
+    "model": "PT-RQ50K",
+    "tech": "3DLP",
+    "panel_size": "1.38\"",
+    "resolution_class": "Native 4K (4096x2160)",
+    "lens_type": "Optional",
+    "brightness_lm": 50000,
+    "power_w": 3970,
+    "weight_kg": 126,
+    "noise_db": 52,
+    "dims_mm": {
+      "w": 720,
+      "d": 1070,
+      "h": 445
+    }
+  },
+  {
+    "id": "Panasonic-PT-RZ120",
+    "brand": "Panasonic",
+    "model": "PT-RZ120",
+    "tech": "1DLP",
+    "panel_size": "0.67\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 12000,
+    "power_w": 730,
+    "weight_kg": 22.8,
+    "noise_db": 44,
+    "dims_mm": {
+      "w": 498,
+      "d": 538,
+      "h": 200
+    }
+  },
+  {
+    "id": "Panasonic-PT-MZ20KL",
+    "brand": "Panasonic",
+    "model": "PT-MZ20KL",
+    "tech": "3LCD",
+    "panel_size": "1.0\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 20000,
+    "power_w": 1050,
+    "weight_kg": 23,
+    "noise_db": 42,
+    "dims_mm": {
+      "w": 650,
+      "d": 440,
+      "h": 211
+    }
+  },
+  {
+    "id": "Panasonic-PT-MZ17KL",
+    "brand": "Panasonic",
+    "model": "PT-MZ17KL",
+    "tech": "3LCD",
+    "panel_size": "1.0\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 16500,
+    "power_w": 880,
+    "weight_kg": 22.5,
+    "noise_db": 38,
+    "dims_mm": {
+      "w": 650,
+      "d": 440,
+      "h": 211
+    }
+  },
+  {
+    "id": "Panasonic-PT-MZ14KL",
+    "brand": "Panasonic",
+    "model": "PT-MZ14KL",
+    "tech": "3LCD",
+    "panel_size": "1.0\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 14000,
+    "power_w": 720,
+    "weight_kg": 22.5,
+    "noise_db": 35,
+    "dims_mm": {
+      "w": 650,
+      "d": 440,
+      "h": 211
+    }
+  },
+  {
+    "id": "Panasonic-PT-MZ11KL",
+    "brand": "Panasonic",
+    "model": "PT-MZ11KL",
+    "tech": "3LCD",
+    "panel_size": "1.0\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 11000,
+    "power_w": 540,
+    "weight_kg": 22.5,
+    "noise_db": 35,
+    "dims_mm": {
+      "w": 650,
+      "d": 440,
+      "h": 211
+    }
+  },
+  {
+    "id": "Panasonic-PT-VMZ82",
+    "brand": "Panasonic",
+    "model": "PT-VMZ82",
+    "tech": "3LCD",
+    "panel_size": "0.64\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Fixed",
+    "brightness_lm": 8000,
+    "power_w": 365,
+    "weight_kg": 7.4,
+    "noise_db": 39,
+    "dims_mm": {
+      "w": 399,
+      "d": 348,
+      "h": 115
+    }
+  },
+  {
+    "id": "Panasonic-PT-VMZ72",
+    "brand": "Panasonic",
+    "model": "PT-VMZ72",
+    "tech": "3LCD",
+    "panel_size": "0.64\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Fixed",
+    "brightness_lm": 7300,
+    "power_w": 310,
+    "weight_kg": 7,
+    "noise_db": 37,
+    "dims_mm": {
+      "w": 399,
+      "d": 348,
+      "h": 115
+    }
+  },
+  {
+    "id": "Panasonic-PT-VMZ62",
+    "brand": "Panasonic",
+    "model": "PT-VMZ62",
+    "tech": "3LCD",
+    "panel_size": "0.64\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Fixed",
+    "brightness_lm": 6500,
+    "power_w": 280,
+    "weight_kg": 6.9,
+    "noise_db": 35,
+    "dims_mm": {
+      "w": 399,
+      "d": 348,
+      "h": 115
+    }
+  },
+  {
+    "id": "Panasonic-PT-VMZ7ST",
+    "brand": "Panasonic",
+    "model": "PT-VMZ7ST",
+    "tech": "3LCD",
+    "panel_size": "0.64\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Fixed",
+    "brightness_lm": 6200,
+    "power_w": 310,
+    "weight_kg": 8.4,
+    "noise_db": 37,
+    "dims_mm": {
+      "w": 414,
+      "d": 424,
+      "h": 120
+    }
+  },
+  {
+    "id": "Panasonic-PT-VMZ6ST",
+    "brand": "Panasonic",
+    "model": "PT-VMZ6ST",
+    "tech": "3LCD",
+    "panel_size": "0.64\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Fixed",
+    "brightness_lm": 7000,
+    "power_w": 280,
+    "weight_kg": 8.3,
+    "noise_db": 35,
+    "dims_mm": {
+      "w": 414,
+      "d": 424,
+      "h": 120
+    }
+  },
+  {
+    "id": "DP-E-Vision 15000i 4K+",
+    "brand": "DP",
+    "model": "E-Vision 15000i 4K+",
+    "tech": "1DLP",
+    "panel_size": "0.8\"",
+    "resolution_class": "4K (3840x2400)",
+    "lens_type": "Optional",
+    "brightness_lm": 13500,
+    "power_w": 990,
+    "weight_kg": 29.4,
+    "noise_db": 40,
+    "dims_mm": {
+      "w": 500,
+      "d": 598,
+      "h": 218
+    }
+  },
+  {
+    "id": "DP-E-Vision 16000i WU",
+    "brand": "DP",
+    "model": "E-Vision 16000i WU",
+    "tech": "1DLP",
+    "panel_size": "0.8\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 14500,
+    "power_w": 900,
+    "weight_kg": 29.4,
+    "noise_db": 39,
+    "dims_mm": {
+      "w": 500,
+      "d": 598,
+      "h": 218
+    }
+  },
+  {
+    "id": "DP-E-Vision 13500i WU",
+    "brand": "DP",
+    "model": "E-Vision 13500i WU",
+    "tech": "1DLP",
+    "panel_size": "0.67\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 11700,
+    "power_w": 583,
+    "weight_kg": 27.5,
+    "noise_db": 40,
+    "dims_mm": {
+      "w": 500,
+      "d": 598,
+      "h": 218
+    }
+  },
+  {
+    "id": "DP-E-Vision 8000i WU",
+    "brand": "DP",
+    "model": "E-Vision 8000i WU",
+    "tech": "1DLP",
+    "panel_size": "0.67\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 7200,
+    "power_w": 442,
+    "weight_kg": 27.5,
+    "noise_db": 34,
+    "dims_mm": {
+      "w": 500,
+      "d": 598,
+      "h": 218
+    }
+  },
+  {
+    "id": "DP-E-Vision 15000 WU",
+    "brand": "DP",
+    "model": "E-Vision 15000 WU",
+    "tech": "1DLP",
+    "panel_size": "0.67\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 13500,
+    "power_w": 1570,
+    "weight_kg": 29.5,
+    "noise_db": 46,
+    "dims_mm": {
+      "w": 500,
+      "d": 598,
+      "h": 218
+    }
+  },
+  {
+    "id": "DP-E-Vision 10000i WU",
+    "brand": "DP",
+    "model": "E-Vision 10000i WU",
+    "tech": "1DLP",
+    "panel_size": "0.67\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 9000,
+    "power_w": 583,
+    "weight_kg": 27.5,
+    "noise_db": 40,
+    "dims_mm": {
+      "w": 500,
+      "d": 598,
+      "h": 218
+    }
+  },
+  {
+    "id": "DP-M-Vision 30000",
+    "brand": "DP",
+    "model": "M-Vision 30000",
+    "tech": "1DLP",
+    "panel_size": "0.96\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 26700,
+    "power_w": 1720,
+    "weight_kg": 48.5,
+    "noise_db": 49,
+    "dims_mm": {
+      "w": 598.8,
+      "d": 669.4,
+      "h": 302.75
+    }
+  },
+  {
+    "id": "DP-M-Vision 27000",
+    "brand": "DP",
+    "model": "M-Vision 27000",
+    "tech": "1DLP",
+    "panel_size": "0.96\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 24000,
+    "power_w": 1550,
+    "weight_kg": 47.2,
+    "noise_db": 48,
+    "dims_mm": {
+      "w": 598.8,
+      "d": 669.4,
+      "h": 302.75
+    }
+  },
+  {
+    "id": "DP-E-Vision 16000i",
+    "brand": "DP",
+    "model": "E-Vision 16000i",
+    "tech": "1DLP",
+    "panel_size": "0.8\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 14500,
+    "power_w": 960,
+    "weight_kg": 29.4,
+    "noise_db": 39,
+    "dims_mm": {
+      "w": 500,
+      "d": 598,
+      "h": 218
+    }
+  },
+  {
+    "id": "DP-E-Vision 10000i 4K+ RGB",
+    "brand": "DP",
+    "model": "E-Vision 10000i 4K+ RGB",
+    "tech": "1DLP",
+    "panel_size": "0.8\"",
+    "resolution_class": "4K (3840x2400)",
+    "lens_type": "Optional",
+    "brightness_lm": 9000,
+    "power_w": 800,
+    "weight_kg": 29.4,
+    "noise_db": 36,
+    "dims_mm": {
+      "w": 500,
+      "d": 598,
+      "h": 218
+    }
+  },
+  {
+    "id": "DP-Titan 37000  WU",
+    "brand": "DP",
+    "model": "Titan 37000  WU",
+    "tech": "3DLP",
+    "panel_size": "0.96\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 33000,
+    "power_w": 3100,
+    "weight_kg": 95,
+    "noise_db": 52,
+    "dims_mm": {
+      "w": 650,
+      "d": 969.3,
+      "h": 397.3
+    }
+  },
+  {
+    "id": "DP-Titan 33000 4K-UHD",
+    "brand": "DP",
+    "model": "Titan 33000 4K-UHD",
+    "tech": "3DLP",
+    "panel_size": "0.96\"",
+    "resolution_class": "4K (3840x2160)",
+    "lens_type": "Optional",
+    "brightness_lm": 27500,
+    "power_w": 3100,
+    "weight_kg": 95,
+    "noise_db": 47,
+    "dims_mm": {
+      "w": 650,
+      "d": 969.3,
+      "h": 397.3
+    }
+  },
+  {
+    "id": "DP-Titan 47000 WU",
+    "brand": "DP",
+    "model": "Titan 47000 WU",
+    "tech": "3DLP",
+    "panel_size": "0.96\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 42000,
+    "power_w": 3650,
+    "weight_kg": 88,
+    "noise_db": 50,
+    "dims_mm": {
+      "w": 650,
+      "d": 840,
+      "h": 381
+    }
+  },
+  {
+    "id": "DP-Titan 41000 4K-UHD",
+    "brand": "DP",
+    "model": "Titan 41000 4K-UHD",
+    "tech": "3DLP",
+    "panel_size": "0.96\"",
+    "resolution_class": "4K (3840x2160)",
+    "lens_type": "Optional",
+    "brightness_lm": 36000,
+    "power_w": 3650,
+    "weight_kg": 88,
+    "noise_db": 53,
+    "dims_mm": {
+      "w": 650,
+      "d": 840,
+      "h": 381
+    }
+  },
+  {
+    "id": "Epson-EB-XQ2030B",
+    "brand": "Epson",
+    "model": "EB-XQ2030B",
+    "tech": "3LCD",
+    "panel_size": "1.04\"",
+    "resolution_class": "4K (3840x2160)",
+    "lens_type": "Optional",
+    "brightness_lm": 30000,
+    "power_w": null,
+    "weight_kg": 36.8,
+    "noise_db": null,
+    "dims_mm": {
+      "w": 620,
+      "d": 580,
+      "h": 220
+    }
+  },
+  {
+    "id": "Epson-Pro L30000UNL",
+    "brand": "Epson",
+    "model": "Pro L30000UNL",
+    "tech": "3LCD",
+    "panel_size": "1.43\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 30000,
+    "power_w": 2325,
+    "weight_kg": 63.8,
+    "noise_db": 49,
+    "dims_mm": {
+      "w": 790,
+      "d": 710,
+      "h": 290
+    }
+  },
+  {
+    "id": "Epson-EB-PU1006",
+    "brand": "Epson",
+    "model": "EB-PU1006",
+    "tech": "3LCD",
+    "panel_size": "0.76\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 6000,
+    "power_w": 384,
+    "weight_kg": 15.4,
+    "noise_db": 30,
+    "dims_mm": {
+      "w": 545,
+      "d": 436,
+      "h": 164
+    }
+  },
+  {
+    "id": "Epson-EB-PU1007",
+    "brand": "Epson",
+    "model": "EB-PU1007",
+    "tech": "3LCD",
+    "panel_size": "0.76\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 7000,
+    "power_w": 448,
+    "weight_kg": 16.283966083,
+    "noise_db": 33,
+    "dims_mm": {
+      "w": 545,
+      "d": 436,
+      "h": 164
+    }
+  },
+  {
+    "id": "Epson-EB-PU1008",
+    "brand": "Epson",
+    "model": "EB-PU1008",
+    "tech": "3LCD",
+    "panel_size": "0.76\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 8500,
+    "power_w": 559,
+    "weight_kg": 16.283966083,
+    "noise_db": 35,
+    "dims_mm": {
+      "w": 545,
+      "d": 436,
+      "h": 164
+    }
+  },
+  {
+    "id": "Epson-EB-PU2010",
+    "brand": "Epson",
+    "model": "EB-PU2010",
+    "tech": "3LCD",
+    "panel_size": "1.03\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 10000,
+    "power_w": 559,
+    "weight_kg": 16.78291769,
+    "noise_db": 35,
+    "dims_mm": {
+      "w": 545,
+      "d": 436,
+      "h": 164
+    }
+  },
+  {
+    "id": "Epson-EB-PU2213",
+    "brand": "Epson",
+    "model": "EB-PU2213",
+    "tech": "3LCD",
+    "panel_size": "1.03\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 13000,
+    "power_w": 864,
+    "weight_kg": 24.2,
+    "noise_db": 35,
+    "dims_mm": {
+      "w": 586,
+      "d": 492,
+      "h": 185
+    }
+  },
+  {
+    "id": "Epson-EB-PU2216",
+    "brand": "Epson",
+    "model": "EB-PU2216",
+    "tech": "3LCD",
+    "panel_size": "1.03\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 16000,
+    "power_w": 1083,
+    "weight_kg": 24.6,
+    "noise_db": 38,
+    "dims_mm": {
+      "w": 586,
+      "d": 492,
+      "h": 185
+    }
+  },
+  {
+    "id": "Epson-EB-PU2220",
+    "brand": "Epson",
+    "model": "EB-PU2220",
+    "tech": "3LCD",
+    "panel_size": "1.03\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 20000,
+    "power_w": 1301,
+    "weight_kg": 24.9,
+    "noise_db": 45,
+    "dims_mm": {
+      "w": 586,
+      "d": 492,
+      "h": 185
+    }
+  },
+  {
+    "id": "Epson-EB-PQ2008",
+    "brand": "Epson",
+    "model": "EB-PQ2008",
+    "tech": "3LCD",
+    "panel_size": "1.04\"",
+    "resolution_class": "4K (3840x2160)",
+    "lens_type": "Optional",
+    "brightness_lm": 8000,
+    "power_w": 522,
+    "weight_kg": 18.6,
+    "noise_db": 35,
+    "dims_mm": {
+      "w": 545,
+      "d": 436,
+      "h": 164
+    }
+  },
+  {
+    "id": "Epson-EB-PQ2210",
+    "brand": "Epson",
+    "model": "EB-PQ2210",
+    "tech": "3LCD",
+    "panel_size": "1.04\"",
+    "resolution_class": "4K (3840x2160)",
+    "lens_type": "Optional",
+    "brightness_lm": 10000,
+    "power_w": 640,
+    "weight_kg": 18.8,
+    "noise_db": 39,
+    "dims_mm": {
+      "w": 545,
+      "d": 436,
+      "h": 164
+    }
+  },
+  {
+    "id": "Epson-EB-PQ2213",
+    "brand": "Epson",
+    "model": "EB-PQ2213",
+    "tech": "3LCD",
+    "panel_size": "1.04\"",
+    "resolution_class": "4K (3840x2160)",
+    "lens_type": "Optional",
+    "brightness_lm": 13000,
+    "power_w": 951,
+    "weight_kg": 28.8,
+    "noise_db": 37,
+    "dims_mm": {
+      "w": 586,
+      "d": 492,
+      "h": 185
+    }
+  },
+  {
+    "id": "Epson-EB-PQ2216",
+    "brand": "Epson",
+    "model": "EB-PQ2216",
+    "tech": "3LCD",
+    "panel_size": "1.04\"",
+    "resolution_class": "4K (3840x2160)",
+    "lens_type": "Optional",
+    "brightness_lm": 16000,
+    "power_w": 1114,
+    "weight_kg": 29.2,
+    "noise_db": 44,
+    "dims_mm": {
+      "w": 586,
+      "d": 492,
+      "h": 185
+    }
+  },
+  {
+    "id": "Epson-EB-PQ2220",
+    "brand": "Epson",
+    "model": "EB-PQ2220",
+    "tech": "3LCD",
+    "panel_size": "1.04\"",
+    "resolution_class": "4K (3840x2160)",
+    "lens_type": "Optional",
+    "brightness_lm": 20000,
+    "power_w": 1431,
+    "weight_kg": 29.2,
+    "noise_db": 48,
+    "dims_mm": {
+      "w": 586,
+      "d": 492,
+      "h": 185
+    }
+  },
+  {
+    "id": "Epson-PowerLite 890U",
+    "brand": "Epson",
+    "model": "PowerLite 890U",
+    "tech": "3LCD",
+    "panel_size": "0.67\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 8000,
+    "power_w": 470,
+    "weight_kg": 8.66,
+    "noise_db": 31,
+    "dims_mm": {
+      "w": 439.93,
+      "d": 304.04,
+      "h": 121.92
+    }
+  },
+  {
+    "id": "Epson-PowerLite L790U",
+    "brand": "Epson",
+    "model": "PowerLite L790U",
+    "tech": "3LCD",
+    "panel_size": "0.67\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 7300,
+    "power_w": 415,
+    "weight_kg": 8.66,
+    "noise_db": 34,
+    "dims_mm": {
+      "w": 439.93,
+      "d": 304.04,
+      "h": 121.92
+    }
+  },
+  {
+    "id": "Epson-PowerLite L690U",
+    "brand": "Epson",
+    "model": "PowerLite L690U",
+    "tech": "3LCD",
+    "panel_size": "0.67\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 6500,
+    "power_w": 415,
+    "weight_kg": 8.21,
+    "noise_db": 32,
+    "dims_mm": {
+      "w": 439.93,
+      "d": 304.04,
+      "h": 121.92
+    }
+  },
+  {
+    "id": "Epson-L20000UNL",
+    "brand": "Epson",
+    "model": "L20000UNL",
+    "tech": "3LCD",
+    "panel_size": "1.03\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 20000,
+    "power_w": 1860,
+    "weight_kg": 49.5776,
+    "noise_db": 45,
+    "dims_mm": {
+      "w": 790,
+      "d": 620,
+      "h": 358.5
+    }
+  },
+  {
+    "id": "Epson-EB-L1495U",
+    "brand": "Epson",
+    "model": "EB-L1495U",
+    "tech": "3LCD",
+    "panel_size": "1.03\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 9000,
+    "power_w": 626,
+    "weight_kg": 21.9,
+    "noise_db": 37,
+    "dims_mm": {
+      "w": 586,
+      "d": 492,
+      "h": 185
+    }
+  },
+  {
+    "id": "Barco-UDM‑4K15",
+    "brand": "Barco",
+    "model": "UDM‑4K15",
+    "tech": "3DLP",
+    "panel_size": "0.9\"",
+    "resolution_class": "4K (3840x2400)",
+    "lens_type": "Optional",
+    "brightness_lm": 14000,
+    "power_w": 1330,
+    "weight_kg": 48,
+    "noise_db": 46,
+    "dims_mm": {
+      "w": 725,
+      "d": 540,
+      "h": 339
+    }
+  },
+  {
+    "id": "Barco-UDM‑4K22",
+    "brand": "Barco",
+    "model": "UDM‑4K22",
+    "tech": "3DLP",
+    "panel_size": "0.9\"",
+    "resolution_class": "4K (3840x2400)",
+    "lens_type": "Optional",
+    "brightness_lm": 25000,
+    "power_w": 1900,
+    "weight_kg": 48,
+    "noise_db": 49,
+    "dims_mm": {
+      "w": 725,
+      "d": 540,
+      "h": 339
+    }
+  },
+  {
+    "id": "Barco-I600-4K8",
+    "brand": "Barco",
+    "model": "I600-4K8",
+    "tech": "1DLP",
+    "panel_size": "0.8\"",
+    "resolution_class": "4K (3840x2400)",
+    "lens_type": "Optional",
+    "brightness_lm": 8000,
+    "power_w": 640,
+    "weight_kg": 21.5,
+    "noise_db": 40,
+    "dims_mm": {
+      "w": 504,
+      "d": 524,
+      "h": 207
+    }
+  },
+  {
+    "id": "Barco-I600-4K10",
+    "brand": "Barco",
+    "model": "I600-4K10",
+    "tech": "1DLP",
+    "panel_size": "0.8\"",
+    "resolution_class": "4K (3840x2400)",
+    "lens_type": "Optional",
+    "brightness_lm": 10000,
+    "power_w": 860,
+    "weight_kg": 23.6,
+    "noise_db": 40,
+    "dims_mm": {
+      "w": 504,
+      "d": 524,
+      "h": 207
+    }
+  },
+  {
+    "id": "Barco-I600-4K15",
+    "brand": "Barco",
+    "model": "I600-4K15",
+    "tech": "1DLP",
+    "panel_size": "0.8\"",
+    "resolution_class": "4K (3840x2400)",
+    "lens_type": "Optional",
+    "brightness_lm": 14000,
+    "power_w": 1200,
+    "weight_kg": 23.7,
+    "noise_db": 40,
+    "dims_mm": {
+      "w": 504,
+      "d": 524,
+      "h": 207
+    }
+  },
+  {
+    "id": "Barco-G100‑W19",
+    "brand": "Barco",
+    "model": "G100‑W19",
+    "tech": "1DLP",
+    "panel_size": "0.96\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 16000,
+    "power_w": 1000,
+    "weight_kg": 50,
+    "noise_db": 40,
+    "dims_mm": {
+      "w": 650,
+      "d": 710,
+      "h": 251
+    }
+  },
+  {
+    "id": "Barco-G100‑W22",
+    "brand": "Barco",
+    "model": "G100‑W22",
+    "tech": "1DLP",
+    "panel_size": "0.96\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 18500,
+    "power_w": 1200,
+    "weight_kg": 54,
+    "noise_db": 42,
+    "dims_mm": {
+      "w": 650,
+      "d": 710,
+      "h": 251
+    }
+  },
+  {
+    "id": "Barco-G100‑W25",
+    "brand": "Barco",
+    "model": "G100‑W25",
+    "tech": "1DLP",
+    "panel_size": "0.96\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 21100,
+    "power_w": 1300,
+    "weight_kg": 55.2,
+    "noise_db": 46,
+    "dims_mm": {
+      "w": 650,
+      "d": 710,
+      "h": 251
+    }
+  },
+  {
+    "id": "Barco-G62‑W9",
+    "brand": "Barco",
+    "model": "G62‑W9",
+    "tech": "1DLP",
+    "panel_size": "0.67\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 8000,
+    "power_w": 625,
+    "weight_kg": 17.4,
+    "noise_db": 40,
+    "dims_mm": {
+      "w": 484,
+      "d": 529,
+      "h": 195
+    }
+  },
+  {
+    "id": "Barco-G62‑W11",
+    "brand": "Barco",
+    "model": "G62‑W11",
+    "tech": "1DLP",
+    "panel_size": "0.67\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 10000,
+    "power_w": 810,
+    "weight_kg": 22.7,
+    "noise_db": 39,
+    "dims_mm": {
+      "w": 484,
+      "d": 529,
+      "h": 195
+    }
+  },
+  {
+    "id": "Barco-G62‑W14",
+    "brand": "Barco",
+    "model": "G62‑W14",
+    "tech": "1DLP",
+    "panel_size": "0.67\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 11500,
+    "power_w": 810,
+    "weight_kg": 22.7,
+    "noise_db": 39,
+    "dims_mm": {
+      "w": 484,
+      "d": 529,
+      "h": 195
+    }
+  },
+  {
+    "id": "Barco-F80‑Q12",
+    "brand": "Barco",
+    "model": "F80‑Q12",
+    "tech": "1DLP",
+    "panel_size": "0.67\"",
+    "resolution_class": "WQXGA (2716x1600)",
+    "lens_type": "Optional",
+    "brightness_lm": 10700,
+    "power_w": 1050,
+    "weight_kg": 26.8,
+    "noise_db": 39,
+    "dims_mm": {
+      "w": 480,
+      "d": 680,
+      "h": 227
+    }
+  },
+  {
+    "id": "Barco-F80‑4K12",
+    "brand": "Barco",
+    "model": "F80‑4K12",
+    "tech": "1DLP",
+    "panel_size": "0.67\"",
+    "resolution_class": "4K (3840x2160)",
+    "lens_type": "Optional",
+    "brightness_lm": 10700,
+    "power_w": 1050,
+    "weight_kg": 26.8,
+    "noise_db": 39,
+    "dims_mm": {
+      "w": 480,
+      "d": 680,
+      "h": 227
+    }
+  },
+  {
+    "id": "Barco-QDX‑W35",
+    "brand": "Barco",
+    "model": "QDX‑W35",
+    "tech": "3DLP",
+    "panel_size": "0.96\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 31000,
+    "power_w": 2560,
+    "weight_kg": 77.5,
+    "noise_db": 52,
+    "dims_mm": {
+      "w": 660,
+      "d": 830,
+      "h": 350
+    }
+  },
+  {
+    "id": "Barco-QDX‑4K35",
+    "brand": "Barco",
+    "model": "QDX‑4K35",
+    "tech": "3DLP",
+    "panel_size": "0.96\"",
+    "resolution_class": "4K (3840x2400)",
+    "lens_type": "Optional",
+    "brightness_lm": 31000,
+    "power_w": 2560,
+    "weight_kg": 77.5,
+    "noise_db": 52,
+    "dims_mm": {
+      "w": 660,
+      "d": 830,
+      "h": 350
+    }
+  },
+  {
+    "id": "Barco-QDX‑W45",
+    "brand": "Barco",
+    "model": "QDX‑W45",
+    "tech": "3DLP",
+    "panel_size": "0.96\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 41000,
+    "power_w": 3200,
+    "weight_kg": 77.5,
+    "noise_db": 52,
+    "dims_mm": {
+      "w": 660,
+      "d": 830,
+      "h": 350
+    }
+  },
+  {
+    "id": "Barco-QDX‑4K45",
+    "brand": "Barco",
+    "model": "QDX‑4K45",
+    "tech": "3DLP",
+    "panel_size": "0.96\"",
+    "resolution_class": "4K (3840x2400)",
+    "lens_type": "Optional",
+    "brightness_lm": 41000,
+    "power_w": 3200,
+    "weight_kg": 77.5,
+    "noise_db": 52,
+    "dims_mm": {
+      "w": 660,
+      "d": 830,
+      "h": 350
+    }
+  },
+  {
+    "id": "Barco-QDX‑N4K25",
+    "brand": "Barco",
+    "model": "QDX‑N4K25",
+    "tech": "3DLP",
+    "panel_size": "0.98\"",
+    "resolution_class": "Native DC 4K (4096x2176)",
+    "lens_type": "Optional",
+    "brightness_lm": 21000,
+    "power_w": 1850,
+    "weight_kg": 79,
+    "noise_db": 50,
+    "dims_mm": {
+      "w": 660,
+      "d": 830,
+      "h": 350
+    }
+  },
+  {
+    "id": "Barco-QDX‑N4K35",
+    "brand": "Barco",
+    "model": "QDX‑N4K35",
+    "tech": "3DLP",
+    "panel_size": "0.98\"",
+    "resolution_class": "Native DC 4K (4096x2176)",
+    "lens_type": "Optional",
+    "brightness_lm": 31000,
+    "power_w": 2400,
+    "weight_kg": 79,
+    "noise_db": 50,
+    "dims_mm": {
+      "w": 660,
+      "d": 830,
+      "h": 350
+    }
+  },
+  {
+    "id": "Barco-QDX‑N4K45",
+    "brand": "Barco",
+    "model": "QDX‑N4K45",
+    "tech": "3DLP",
+    "panel_size": "0.98\"",
+    "resolution_class": "Native DC 4K (4096x2176)",
+    "lens_type": "Optional",
+    "brightness_lm": 35000,
+    "power_w": 3200,
+    "weight_kg": 79,
+    "noise_db": 52,
+    "dims_mm": {
+      "w": 660,
+      "d": 830,
+      "h": 350
+    }
+  },
+  {
+    "id": "Sharp- A175U",
+    "brand": "Sharp",
+    "model": "A175U",
+    "tech": "3LCD",
+    "panel_size": "1.0\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 16000,
+    "power_w": 990,
+    "weight_kg": 28.7,
+    "noise_db": 43,
+    "dims_mm": {
+      "w": 599,
+      "d": 490,
+      "h": 238
+    }
+  },
+  {
+    "id": "Sharp- A155U",
+    "brand": "Sharp",
+    "model": "A155U",
+    "tech": "3LCD",
+    "panel_size": "1.0\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 14000,
+    "power_w": 865,
+    "weight_kg": 28.7,
+    "noise_db": 38,
+    "dims_mm": {
+      "w": 599,
+      "d": 490,
+      "h": 238
+    }
+  },
+  {
+    "id": "Sharp- A104U",
+    "brand": "Sharp",
+    "model": "A104U",
+    "tech": "3LCD",
+    "panel_size": "0.76\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 9000,
+    "power_w": 725,
+    "weight_kg": 24.4,
+    "noise_db": 35,
+    "dims_mm": {
+      "w": 599,
+      "d": 490,
+      "h": 208
+    }
+  },
+  {
+    "id": "Sharp- A824U",
+    "brand": "Sharp",
+    "model": "A824U",
+    "tech": "3LCD",
+    "panel_size": "0.76\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 7500,
+    "power_w": 615,
+    "weight_kg": 24.1,
+    "noise_db": 34,
+    "dims_mm": {
+      "w": 599,
+      "d": 490,
+      "h": 208
+    }
+  },
+  {
+    "id": "Sharp- A201U",
+    "brand": "Sharp",
+    "model": "A201U",
+    "tech": "3LCD",
+    "panel_size": "1.0\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 20000,
+    "power_w": 1530,
+    "weight_kg": 38.7,
+    "noise_db": 42,
+    "dims_mm": {
+      "w": 650,
+      "d": 549,
+      "h": 262
+    }
+  },
+  {
+    "id": "Sharp- V731U",
+    "brand": "Sharp",
+    "model": "V731U",
+    "tech": "3LCD",
+    "panel_size": "0.76\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 7300,
+    "power_w": 434,
+    "weight_kg": 11.2,
+    "noise_db": 40,
+    "dims_mm": {
+      "w": 499,
+      "d": 407,
+      "h": 164
+    }
+  },
+  {
+    "id": "Sharp- V801U",
+    "brand": "Sharp",
+    "model": "V801U",
+    "tech": "3LCD",
+    "panel_size": "0.76\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 8000,
+    "power_w": 467,
+    "weight_kg": 11.2,
+    "noise_db": 42,
+    "dims_mm": {
+      "w": 499,
+      "d": 407,
+      "h": 164
+    }
+  },
+  {
+    "id": "Sharp- P721Q",
+    "brand": "Sharp",
+    "model": "P721Q",
+    "tech": "1DLP",
+    "panel_size": "0.65\"",
+    "resolution_class": "4K (3840x2160)",
+    "lens_type": "Optional",
+    "brightness_lm": 7200,
+    "power_w": 520,
+    "weight_kg": 14.7,
+    "noise_db": 36,
+    "dims_mm": {
+      "w": 486,
+      "d": 432.5,
+      "h": 176
+    }
+  },
+  {
+    "id": "Sharp- P601Q",
+    "brand": "Sharp",
+    "model": "P601Q",
+    "tech": "1DLP",
+    "panel_size": "0.65\"",
+    "resolution_class": "4K (3840x2160)",
+    "lens_type": "Optional",
+    "brightness_lm": 6000,
+    "power_w": 520,
+    "weight_kg": 14.7,
+    "noise_db": 36,
+    "dims_mm": {
+      "w": 486,
+      "d": 432.5,
+      "h": 176
+    }
+  },
+  {
+    "id": "Sharp- PA1705UL",
+    "brand": "Sharp",
+    "model": "PA1705UL",
+    "tech": "3LCD",
+    "panel_size": "1.0\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 16000,
+    "power_w": 995,
+    "weight_kg": 28.7,
+    "noise_db": 43,
+    "dims_mm": {
+      "w": 599,
+      "d": 490,
+      "h": 238
+    }
+  },
+  {
+    "id": "Sharp-PA1505UL",
+    "brand": "Sharp",
+    "model": "PA1505UL",
+    "tech": "3LCD",
+    "panel_size": "1.0\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Optional",
+    "brightness_lm": 14000,
+    "power_w": 925,
+    "weight_kg": 28.7,
+    "noise_db": 38,
+    "dims_mm": {
+      "w": 599,
+      "d": 490,
+      "h": 238
+    }
+  },
+  {
+    "id": "Sharp-XP-X141Q",
+    "brand": "Sharp",
+    "model": "XP-X141Q",
+    "tech": "1DLP",
+    "panel_size": "0.8\"",
+    "resolution_class": "4K (3840x2400)",
+    "lens_type": "Optional",
+    "brightness_lm": 13500,
+    "power_w": 1000,
+    "weight_kg": 29,
+    "noise_db": 37,
+    "dims_mm": {
+      "w": 500,
+      "d": 577,
+      "h": 211
+    }
+  },
+  {
+    "id": "Sharp-XP-X171Q",
+    "brand": "Sharp",
+    "model": "XP-X171Q",
+    "tech": "1DLP",
+    "panel_size": "0.8\"",
+    "resolution_class": "4K (3840x2400)",
+    "lens_type": "Optional",
+    "brightness_lm": 16500,
+    "power_w": 1000,
+    "weight_kg": 28,
+    "noise_db": 40,
+    "dims_mm": {
+      "w": 500,
+      "d": 577,
+      "h": 211
+    }
+  },
+  {
+    "id": "Appotronics-AL-SK15KS-1772521185551",
+    "brand": "Appotronics",
+    "model": "AL-SK15KS",
+    "tech": "1DLP",
+    "panel_size": "0.8\"",
+    "resolution_class": "4K (3840x2400)",
+    "lens_type": "Optional",
+    "brightness_lm": 15000,
+    "power_w": 1050,
+    "weight_kg": 28.5,
+    "noise_db": 40,
+    "dims_mm": {
+      "w": 538,
+      "d": 510,
+      "h": 190
+    }
+  },
+  {
+    "id": "Coretronic-H90-1772522900380",
+    "brand": "Coretronic",
+    "model": "H90",
+    "tech": "1DLP",
+    "panel_size": "0.8\"",
+    "resolution_class": "4K (3840x2400)",
+    "lens_type": "Optional",
+    "brightness_lm": 30000,
+    "power_w": 3000,
+    "weight_kg": 40,
+    "noise_db": 47,
+    "dims_mm": {
+      "w": 610,
+      "d": 650,
+      "h": 220
+    }
+  },
+  {
+    "id": "Coretronic-H90 - POC-1772534592537",
+    "brand": "Coretronic",
+    "model": "H90 - POC",
+    "tech": "1DLP",
+    "panel_size": "0.8\"",
+    "resolution_class": "4K (3840x2400)",
+    "lens_type": "Optional",
+    "brightness_lm": 30000,
+    "power_w": 3000,
+    "weight_kg": 40,
+    "noise_db": 47,
+    "dims_mm": {
+      "w": 650,
+      "d": 670,
+      "h": 310
+    }
+  },
+  {
+    "id": "Panasonic-PT-VMQ85-1772584048239",
+    "brand": "Panasonic",
+    "model": "PT-VMQ85",
+    "tech": "3LCD",
+    "panel_size": "0.64\"",
+    "resolution_class": "4K (3840x2400)",
+    "lens_type": "Fixed",
+    "brightness_lm": 8000,
+    "power_w": 380,
+    "weight_kg": 7.6,
+    "noise_db": 39,
+    "dims_mm": {
+      "w": 399,
+      "d": 348,
+      "h": 115
+    }
+  },
+  {
+    "id": "Panasonic-PT-VMQ75-1772584124434",
+    "brand": "Panasonic",
+    "model": "PT-VMQ75",
+    "tech": "3LCD",
+    "panel_size": "0.64\"",
+    "resolution_class": "4K (3840x2400)",
+    "lens_type": "Fixed",
+    "brightness_lm": 7300,
+    "power_w": 325,
+    "weight_kg": 7.2,
+    "noise_db": 37,
+    "dims_mm": {
+      "w": 399,
+      "d": 348,
+      "h": 115
+    }
+  },
+  {
+    "id": "Panasonic-PT-VMQ65-1772584201453",
+    "brand": "Panasonic",
+    "model": "PT-VMQ65",
+    "tech": "3LCD",
+    "panel_size": "0.64\"",
+    "resolution_class": "4K (3840x2400)",
+    "lens_type": "Fixed",
+    "brightness_lm": 6500,
+    "power_w": 290,
+    "weight_kg": 7.1,
+    "noise_db": 35,
+    "dims_mm": {
+      "w": 399,
+      "d": 348,
+      "h": 115
+    }
+  },
+  {
+    "id": "Fujifilm-FP-ZUH6000-1773102616238",
+    "brand": "Fujifilm",
+    "model": "FP-ZUH6000",
+    "tech": "1DLP",
+    "panel_size": "0.65\"",
+    "resolution_class": "4K (3840x2160)",
+    "lens_type": "Fixed",
+    "brightness_lm": 6000,
+    "power_w": 650,
+    "weight_kg": 17.5,
+    "noise_db": 36,
+    "dims_mm": {
+      "w": 486,
+      "d": 496,
+      "h": 175
+    }
+  },
+  {
+    "id": "Fujifilm-FP-Z6000-1773102676097",
+    "brand": "Fujifilm",
+    "model": "FP-Z6000",
+    "tech": "1DLP",
+    "panel_size": "0.67\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Fixed",
+    "brightness_lm": 6000,
+    "power_w": 642,
+    "weight_kg": 17.5,
+    "noise_db": 41,
+    "dims_mm": {
+      "w": 460,
+      "d": 510,
+      "h": 163
+    }
+  },
+  {
+    "id": "Fujifilm-FP-Z8000-1773102727390",
+    "brand": "Fujifilm",
+    "model": "FP-Z8000",
+    "tech": "1DLP",
+    "panel_size": "0.67\"",
+    "resolution_class": "WUXGA (1920x1200)",
+    "lens_type": "Fixed",
+    "brightness_lm": 8000,
+    "power_w": 1020,
+    "weight_kg": 18.4,
+    "noise_db": 43,
+    "dims_mm": {
+      "w": 460,
+      "d": 510,
+      "h": 163
+    }
+  }
+];
 let state = { lang: 'zh', selected: [], editingProductId: null };
 
 const I18N = {
   zh: {
-    ui: { added:'已加入比較', clear:'已清空', imported:'已匯入', productAdded:'產品已新增', productUpdated:'產品已更新', productDeleted:'產品已刪除', confirmDelete:'確定要刪除這個產品嗎?' },
-    th: { brand:'品牌',model:'型號',tech:'技術',panel:'板',res:'解析度',bright:'亮度(lm)',power:'功耗(W)',weight:'重量(kg)',noise:'噪音(dB)',dims:'尺寸(mm)',vol:'體積(L)',ratio:'效能比' },
+    ui: { added:'已加入比較', clear:'已清空', imported:'已匯入', productAdded:'產品已新增', productUpdated:'產品已更新', productDeleted:'產品已刪除', confirmDelete:'確定要刪除這個產品嗎?', noProducts:'尚未選擇產品', selectFromLeft:'請從左側選單選擇產品進行比較', notSelected:'尚未選擇', noProductsFound:'沒有找到產品' },
+    th: { brand:'品牌',model:'型號',tech:'技術',panel:'面板尺寸',lens:'鏡頭',res:'解析度',bright:'亮度',power:'功耗',weight:'重量',noise:'噪音',dims:'尺寸',vol:'體積',ratio:'效能比' },
     best: { vol:'最小體積',bright:'最高亮度',power:'最低功耗',weight:'最輕',noise:'最安靜',ratio:'最佳比值' },
-    compare: { title:'體積比較', baseProduct:'基準產品', volumeRatio:'體積比例', larger:'較大', smaller:'較小', ofBase:'是基準產品的' }
+    compare: { title:'體積比較', baseProduct:'基準產品', volumeRatio:'體積比例', larger:'較大', smaller:'較小', ofBase:'是基準產品的', volume:'體積' }
   },
   en: {
-    ui: { added:'Added', clear:'Cleared', imported:'Imported', productAdded:'Product Added', productUpdated:'Product Updated', productDeleted:'Product Deleted', confirmDelete:'Are you sure you want to delete this product?' },
-    th: { brand:'Brand',model:'Model',tech:'Tech',panel:'Panel',res:'Resolution',bright:'Brightness(lm)',power:'Power(W)',weight:'Weight(kg)',noise:'Noise(dB)',dims:'Dimensions(mm)',vol:'Volume(L)',ratio:'Efficiency' },
-    best: { vol:'Min Vol',bright:'Max Bright',power:'Min Power',weight:'Lightest',noise:'Quietest',ratio:'Best Ratio' },
-    compare: { title:'Volume Comparison', baseProduct:'Base Product', volumeRatio:'Volume Ratio', larger:'Larger', smaller:'Smaller', ofBase:'is' }
+    ui: { added:'Added to comparison', clear:'Cleared', imported:'Imported', productAdded:'Product added', productUpdated:'Product updated', productDeleted:'Product deleted', confirmDelete:'Are you sure you want to delete this product?', noProducts:'No products selected', selectFromLeft:'Please select products from the left panel to compare', notSelected:'Not selected', noProductsFound:'No products found' },
+    th: { brand:'Brand',model:'Model',tech:'Technology',panel:'Panel Size',lens:'Lens',res:'Resolution',bright:'Brightness',power:'Power',weight:'Weight',noise:'Noise',dims:'Dimensions',vol:'Volume',ratio:'Efficiency' },
+    best: { vol:'Smallest',bright:'Brightest',power:'Most Efficient',weight:'Lightest',noise:'Quietest',ratio:'Best Ratio' },
+    compare: { title:'Volume Comparison', baseProduct:'Base Product', volumeRatio:'Volume Ratio', larger:'Larger', smaller:'Smaller', ofBase:'is', volume:'Volume' }
   },
   ja: {
-    ui: { added:'追加済',clear:'クリア済',imported:'インポート済', productAdded:'製品追加済', productUpdated:'製品更新済', productDeleted:'製品削除済', confirmDelete:'この製品を削除しますか?' },
-    th: { brand:'ブランド',model:'型番',tech:'技術',panel:'パネル',res:'解像度',bright:'輝度(lm)',power:'消費電力(W)',weight:'重量(kg)',noise:'騒音(dB)',dims:'サイズ(mm)',vol:'体積(L)',ratio:'効率' },
-    best: { vol:'最小体積',bright:'最高輝度',power:'最低電力',weight:'最軽量',noise:'最静音',ratio:'最高比' },
-    compare: { title:'体積比較', baseProduct:'基準製品', volumeRatio:'体積比', larger:'大きい', smaller:'小さい', ofBase:'は基準製品の' }
+    ui: { added:'比較に追加されました', clear:'クリアされました', imported:'インポートされました', productAdded:'製品が追加されました', productUpdated:'製品が更新されました', productDeleted:'製品が削除されました', confirmDelete:'この製品を削除してもよろしいですか?', noProducts:'製品が選択されていません', selectFromLeft:'左側のパネルから製品を選択してください', notSelected:'未選択', noProductsFound:'製品が見つかりません' },
+    th: { brand:'ブランド',model:'モデル',tech:'技術',panel:'パネルサイズ',lens:'レンズ',res:'解像度',bright:'輝度',power:'消費電力',weight:'重量',noise:'騒音',dims:'寸法',vol:'体積',ratio:'効率' },
+    best: { vol:'最小',bright:'最高輝度',power:'最高効率',weight:'最軽量',noise:'最静音',ratio:'最高比率' },
+    compare: { title:'体積比較', baseProduct:'基準製品', volumeRatio:'体積比', larger:'大きい', smaller:'小さい', ofBase:'は基準製品の', volume:'体積' }
   }
 };
 
@@ -353,10 +3302,93 @@ function populate(){
   setCascade();
 }
 
+function clearFilters(){
+  // 清除所有篩選器
+  $('#brandSel').value = '';
+  $('#techSel').value = '';
+  $('#resSel').value = '';
+  $('#brightSel').value = '';
+  
+  // 重新載入產品列表
+  setCascade();
+  
+  // 顯示提示訊息
+  const msg = state.lang === 'en' ? 'Filters cleared' : state.lang === 'ja' ? 'フィルタをクリアしました' : '已清除所有篩選';
+  toast(msg);
+}
+
 function setCascade(){
-  const b = $('#brandSel').value, t = $('#techSel').value, r = $('#resSel').value;
-  const filt = DATA.filter(d => (!b || d.brand===b) && (!t || d.tech===t) && (!r || d.resolution_class===r));
+  const b = $('#brandSel').value, t = $('#techSel').value, r = $('#resSel').value, br = $('#brightSel').value;
+  const filt = DATA.filter(d => {
+    if(b && d.brand !== b) return false;
+    if(t && d.tech !== t) return false;
+    if(r && d.resolution_class !== r) return false;
+    if(br) {
+      const [min, max] = br.split('-').map(Number);
+      if(d.brightness_lm < min || d.brightness_lm > max) return false;
+    }
+    return true;
+  });
   $('#modelSel').innerHTML = filt.map(d=>`<option value="${d.id}">${d.model}</option>`).join('');
+}
+
+function updateCardTitles(){
+  const labels = {
+    zh: { filter: '🔍 篩選與選擇', compare: '📊 規格比較表', manage: '🛠️ 產品管理', brand: '品牌', tech: '技術', resolution: '解析度', brightness: '亮度範圍', select: '📌 選擇產品', selected: '已選產品', clearAll: '清除全部', clearFilters: '清除所有篩選', add: '加入', search: '🔍 搜尋品牌或型號...', close: '關閉', cancel: '取消', save: '儲存' },
+    en: { filter: '🔍 Filter & Select', compare: '📊 Comparison Table', manage: '🛠️ Product Management', brand: 'Brand', tech: 'Technology', resolution: 'Resolution', brightness: 'Brightness Range', select: '📌 Select Product', selected: 'Selected Products', clearAll: 'Clear All', clearFilters: 'Clear All Filters', add: 'Add', search: '🔍 Search brand or model...', close: 'Close', cancel: 'Cancel', save: 'Save' },
+    ja: { filter: '🔍 フィルタと選択', compare: '📊 比較表', manage: '🛠️ 製品管理', brand: 'ブランド', tech: '技術', resolution: '解像度', brightness: '輝度範囲', select: '📌 製品を選択', selected: '選択済み製品', clearAll: 'すべてクリア', clearFilters: 'すべてのフィルタをクリア', add: '追加', search: '🔍 ブランドまたはモデルを検索...', close: '閉じる', cancel: 'キャンセル', save: '保存' }
+  };
+  
+  const lang = state.lang || 'zh';
+  const t = labels[lang];
+  
+  // 更新卡片標題
+  const filterHeader = document.querySelector('.card-header h2');
+  if(filterHeader && filterHeader.textContent.includes('篩選') || filterHeader.textContent.includes('Filter') || filterHeader.textContent.includes('フィルタ')) {
+    filterHeader.textContent = t.filter;
+  }
+  
+  const compareHeader = document.querySelectorAll('.card-header h2')[1];
+  if(compareHeader) {
+    compareHeader.textContent = t.compare;
+  }
+  
+  // 更新按鈕文字
+  const clearBtn = $('#clearCols');
+  if(clearBtn) clearBtn.textContent = t.clearAll;
+  
+  const addBtn = $('#addColBtn');
+  if(addBtn) addBtn.textContent = t.add;
+  
+  // 更新section labels
+  const labels_nodes = document.querySelectorAll('.section-label');
+  if(labels_nodes[0]) labels_nodes[0].textContent = t.brand;
+  if(labels_nodes[1]) labels_nodes[1].textContent = t.tech;
+  if(labels_nodes[2]) labels_nodes[2].textContent = t.resolution;
+  if(labels_nodes[3]) labels_nodes[3].textContent = t.brightness;
+  if(labels_nodes[4]) labels_nodes[4].textContent = t.select;
+  if(labels_nodes[5]) labels_nodes[5].textContent = t.selected;
+  
+  // 更新清除篩選按鈕
+  const clearFiltersBtn = $('#clearFiltersBtn');
+  if(clearFiltersBtn) {
+    const btnText = clearFiltersBtn.querySelector('span:last-child');
+    if(btnText) btnText.textContent = t.clearFilters;
+  }
+  
+  // 更新modal標題和按鈕
+  const manageModalHeader = document.querySelector('#manageModal h2');
+  if(manageModalHeader) manageModalHeader.textContent = t.manage;
+  
+  const searchInput = $('#searchProducts');
+  if(searchInput) searchInput.placeholder = t.search;
+  
+  const modalFooterBtns = document.querySelectorAll('#manageModal .modal-footer .btn');
+  if(modalFooterBtns[0]) modalFooterBtns[0].textContent = t.close;
+  
+  const productModalFooterBtns = document.querySelectorAll('#productModal .modal-footer .btn');
+  if(productModalFooterBtns[0]) productModalFooterBtns[0].textContent = t.cancel;
+  if(productModalFooterBtns[1]) productModalFooterBtns[1].textContent = t.save;
 }
 
 function render(){
@@ -365,20 +3397,23 @@ function render(){
   const best = (I18N[state.lang] || I18N.zh).best;
   const compare = (I18N[state.lang] || I18N.zh).compare;
   
+  // 更新卡片標題
+  updateCardTitles();
+  
   renderSelectedList();
   renderComparison(compare);
   
   if(!state.selected.length){
-    $('#table').innerHTML = `<p style="color:var(--muted);padding:20px;text-align:center">${state.lang==='en'?'No items selected':state.lang==='ja'?'製品を選択してください':'請選擇產品進行比較'}</p>`;
+    const emptyText = state.lang === 'en' ? ui.noProducts : state.lang === 'ja' ? ui.noProducts : ui.noProducts;
+    const hintText = state.lang === 'en' ? ui.selectFromLeft : state.lang === 'ja' ? ui.selectFromLeft : ui.selectFromLeft;
+    $('#table').innerHTML = `<div class="empty-state"><div class="empty-state-icon">📊</div><div class="empty-state-text">${emptyText}</div><div class="empty-state-hint">${hintText}</div></div>`;
     return;
   }
+  
   const cols = state.selected.map(id=>DATA.find(d=>d.id===id)).filter(Boolean);
   if(!cols.length) return;
 
-  const vol_col = cols.map(c=>{
-    const v = (c.dims_mm.w * c.dims_mm.d * c.dims_mm.h)/1000000;
-    return { id:c.id, val:v };
-  });
+  const vol_col = cols.map(c=>({ id:c.id, val:(c.dims_mm.w*c.dims_mm.d*c.dims_mm.h)/1000000 }));
   const bright_col = cols.map(c=>({ id:c.id, val:c.brightness_lm }));
   const power_col = cols.map(c=>({ id:c.id, val:c.power_w }));
   const weight_col = cols.map(c=>({ id:c.id, val:c.weight_kg }));
@@ -423,23 +3458,20 @@ function render(){
 
   addRow(th.tech, c=>c.tech||'—');
   addRow(th.panel, c=>c.panel_size||'—');
+  addRow(th.bright+' (lm)', c=>Number.isFinite(c.brightness_lm)?c.brightness_lm.toLocaleString():'—', 'bright');
   addRow(th.res, c=>c.resolution_class||'—');
-  addRow(th.bright, c=>Number.isFinite(c.brightness_lm)?c.brightness_lm.toLocaleString():'—', 'bright');
-  addRow(th.power, c=>Number.isFinite(c.power_w)?c.power_w.toLocaleString():'—', 'power');
-  addRow(th.weight, c=>Number.isFinite(c.weight_kg)?c.weight_kg.toFixed(1):'—', 'weight');
-  addRow(th.noise, c=>Number.isFinite(c.noise_db)?c.noise_db:'—', 'noise');
-  addRow(th.dims, c=>{
-    const {w,d,h}=c.dims_mm;
-    return `${w}×${d}×${h}`;
-  });
-  addRow(th.vol+' (W×D×H÷1000000)', c=>{
-    const v=(c.dims_mm.w*c.dims_mm.d*c.dims_mm.h)/1000000;
-    return v.toFixed(1);
-  }, 'vol');
+  addRow(th.lens, c=>c.lens_type||'—');
+  addRow(th.power+' (W)', c=>Number.isFinite(c.power_w)?c.power_w.toLocaleString():'—', 'power');
+  addRow(th.noise+' (dB)', c=>Number.isFinite(c.noise_db)?c.noise_db:'—', 'noise');
+  addRow(th.dims+' (mm)', c=>`${c.dims_mm.w}×${c.dims_mm.d}×${c.dims_mm.h}`);
+  addRow(th.vol+' (L)', c=>((c.dims_mm.w*c.dims_mm.d*c.dims_mm.h)/1000000).toFixed(1), 'vol');
+  addRow(th.weight+' (kg)', c=>Number.isFinite(c.weight_kg)?c.weight_kg.toFixed(1):'—', 'weight');
   addRow(th.ratio+' (lm/W)', c=>{
-    const r=Number.isFinite(c.brightness_lm)&&Number.isFinite(c.power_w)&&c.power_w>0
-      ?(c.brightness_lm/c.power_w).toFixed(2):'—';
-    return r;
+    // 如果功耗或亮度不是有效數字,或功耗為0,顯示 "-"
+    if(!Number.isFinite(c.brightness_lm) || !Number.isFinite(c.power_w) || c.power_w <= 0){
+      return '—';
+    }
+    return (c.brightness_lm/c.power_w).toFixed(2);
   }, 'ratio');
 
   html+='</tbody></table>';
@@ -448,8 +3480,9 @@ function render(){
 
 function renderSelectedList(){
   const list = $('#selectedList');
+  const ui = (I18N[state.lang] || I18N.zh).ui;
   if(!state.selected.length){
-    list.innerHTML = `<p style="color:var(--muted);font-size:13px;text-align:center">${state.lang==='en'?'No products selected':state.lang==='ja'?'選択なし':'尚未選擇產品'}</p>`;
+    list.innerHTML = `<div class="empty-state" style="padding:30px 10px;"><div class="empty-state-icon" style="font-size:32px;">📦</div><div class="empty-state-hint">${ui.notSelected}</div></div>`;
     return;
   }
   
@@ -459,11 +3492,12 @@ function renderSelectedList(){
     if(!item) return;
     html += `
       <li class="selected-item">
-        <span class="name">${idx+1}. ${item.brand} ${item.model}</span>
+        <span class="index">${idx+1}</span>
+        <span class="name">${item.brand} ${item.model}</span>
         <div class="controls">
-          ${idx > 0 ? `<button class="btn small move-btn" onclick="moveProduct(${idx}, -1)" title="${state.lang==='en'?'Move up':state.lang==='ja'?'上へ':'往上移'}">↑</button>` : ''}
-          ${idx < state.selected.length - 1 ? `<button class="btn small move-btn" onclick="moveProduct(${idx}, 1)" title="${state.lang==='en'?'Move down':state.lang==='ja'?'下へ':'往下移'}">↓</button>` : ''}
-          <button class="btn small delete-btn" onclick="removeProduct(${idx})" title="${state.lang==='en'?'Remove':state.lang==='ja'?'削除':'刪除'}">✕</button>
+          ${idx > 0 ? `<button class="btn small secondary move-btn" onclick="moveProduct(${idx}, -1)" title="往上移">↑</button>` : ''}
+          ${idx < state.selected.length - 1 ? `<button class="btn small secondary move-btn" onclick="moveProduct(${idx}, 1)" title="往下移">↓</button>` : ''}
+          <button class="btn small danger delete-btn" onclick="removeProduct(${idx})" title="移除">✕</button>
         </div>
       </li>`;
   });
@@ -485,11 +3519,11 @@ function renderComparison(compare){
   
   let html = `
     <div class="comparison-card">
-      <h3>📊 ${compare.title}</h3>
-      <div style="margin-bottom:12px;padding:8px;background:var(--surface);border-radius:8px;border:1px solid var(--border);">
-        <div style="font-size:12px;color:var(--muted);margin-bottom:4px;">${compare.baseProduct}:</div>
-        <div style="font-weight:700;color:var(--accent);">${baseProduct.brand} ${baseProduct.model}</div>
-        <div style="font-size:13px;color:var(--muted);margin-top:4px;">體積: ${baseVolume.toFixed(1)}L</div>
+      <h3><span>📊</span> ${compare.title}</h3>
+      <div class="base-product-box">
+        <div class="base-product-label">${compare.baseProduct}</div>
+        <div class="base-product-name">${baseProduct.brand} ${baseProduct.model}</div>
+        <div class="base-product-volume">${compare.volume}: ${baseVolume.toFixed(1)} L</div>
       </div>
   `;
   
@@ -504,15 +3538,15 @@ function renderComparison(compare){
     
     html += `
       <div class="compare-row">
-        <div style="flex:1;">
-          <div style="font-weight:600;font-size:13px;">${product.brand} ${product.model}</div>
-          <div style="font-size:12px;color:var(--muted);">${volume.toFixed(1)}L</div>
+        <div class="compare-product-info">
+          <div class="compare-product-name">${product.brand} ${product.model}</div>
+          <div class="compare-product-volume">${volume.toFixed(1)} L</div>
         </div>
-        <div style="text-align:right;">
-          <div class="compare-value ${isSmaller ? 'positive' : isLarger ? 'negative' : 'neutral'}" style="font-size:15px;">
+        <div class="compare-result">
+          <div class="compare-value ${isSmaller ? 'positive' : isLarger ? 'negative' : 'neutral'}">
             ${ratio}%
           </div>
-          <div style="font-size:11px;color:var(--muted);">
+          <div class="compare-label">
             ${compare.ofBase} ${isSmaller ? compare.smaller : isLarger ? compare.larger : '相同'}
           </div>
         </div>
@@ -541,13 +3575,14 @@ function toast(msg){
   const box = $('#toastBox');
   box.textContent = msg;
   box.style.display = 'block';
-  setTimeout(() => box.style.display = 'none', 2000);
+  setTimeout(() => box.style.display = 'none', 3000);
 }
 
 function addSelected(id){
   if(!id) return;
   if(state.selected.includes(id)){
-    toast(state.lang==='en'?'Already added':state.lang==='ja'?'既に追加済み':'已在比較列表中');
+    const msg = state.lang === 'en' ? 'Product already in comparison list' : state.lang === 'ja' ? '既に比較リストに追加されています' : '該產品已在比較列表中';
+    toast(msg);
     return;
   }
   state.selected.push(id);
@@ -555,36 +3590,20 @@ function addSelected(id){
   toast((I18N[state.lang]||I18N.zh).ui.added);
 }
 
-function addCustomDims(){
-  const name=($('#cd_name')?.value||'').trim();
-  const w=Number($('#cd_w')?.value), d=Number($('#cd_d')?.value), h=Number($('#cd_h')?.value);
-  if(!Number.isFinite(w)||!Number.isFinite(d)||!Number.isFinite(h)||w<=0||d<=0||h<=0){
-    alert(state.lang==='en'?'Invalid dimensions':state.lang==='ja'?'無効な寸法':'請輸入正確的尺寸(W/D/H,單位mm)');
-    return;
-  }
-  const id=`CUSTOM-${Date.now()}`;
-  const modelName=name||`${w}x${d}x${h}`;
-  const custom = {
-    id, brand:'Custom', model:modelName,
-    tech:'', resolution_class:'',
-    brightness_lm:NaN, power_w:NaN, weight_kg:NaN, noise_db:NaN,
-    dims_mm:{w,d,h}
-  };
-  DATA.push(custom);
-  populate();
-  $('#modelSel').value=id;
-  addSelected(id);
-  ['cd_name','cd_w','cd_d','cd_h'].forEach(i=>{const el=$('#'+i);if(el)el.value='';});
-}
-
-// === 產品管理功能 ===
-
 function openManageModal(){
+  // 清空搜尋框,顯示所有產品
+  const searchInput = $('#searchProducts');
+  if(searchInput) searchInput.value = '';
+  
   $('#manageModal').classList.add('show');
   renderProductTable();
 }
 
 function closeManageModal(){
+  // 關閉時清空搜尋框,下次開啟時顯示所有產品
+  const searchInput = $('#searchProducts');
+  if(searchInput) searchInput.value = '';
+  
   $('#manageModal').classList.remove('show');
 }
 
@@ -624,7 +3643,7 @@ function renderProductTable(){
     `;
   });
   
-  tbody.innerHTML = html || '<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:20px;">沒有找到產品</td></tr>';
+  tbody.innerHTML = html || `<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:40px;">${(I18N[state.lang]||I18N.zh).ui.noProductsFound}</td></tr>`;
 }
 
 function filterProducts(){
@@ -636,7 +3655,8 @@ function editProduct(id){
   if(!product) return;
   
   state.editingProductId = id;
-  $('#productModalTitle').textContent = state.lang==='en'?'Edit Product':state.lang==='ja'?'製品編集':'編輯產品';
+  const title = state.lang === 'en' ? 'Edit Product' : state.lang === 'ja' ? '製品編集' : '編輯產品';
+  $('#productModalTitle').textContent = title;
   
   $('#edit_product_id').value = id;
   $('#product_brand').value = product.brand;
@@ -644,8 +3664,7 @@ function editProduct(id){
   $('#product_tech').value = product.tech || '';
   $('#product_panel').value = product.panel_size || '';
   
-  // 檢查是否為預設解析度
-  const resolutionOptions = ['4K UHD (3840x2160)', 'Native 4K (4096x2160)', 'Native DC 4K (4096x2176)', '4K (3840x2400)', 'WUXGA (1920x1200)', 'WQXGA (2716x1600)'];
+  const resolutionOptions = ['4K (3840x2160)', 'Native 4K (4096x2160)', 'Native DC 4K (4096x2176)', '4K (3840x2400)', 'WUXGA (1920x1200)', 'WQXGA (2716x1600)'];
   if(resolutionOptions.includes(product.resolution_class)){
     $('#product_resolution').value = product.resolution_class;
     $('#product_resolution_custom').style.display = 'none';
@@ -654,6 +3673,8 @@ function editProduct(id){
     $('#product_resolution_custom').value = product.resolution_class || '';
     $('#product_resolution_custom').style.display = 'block';
   }
+  
+  $('#product_lens').value = product.lens_type || 'Optional';
   
   $('#product_brightness').value = product.brightness_lm;
   $('#product_power').value = product.power_w;
@@ -685,7 +3706,8 @@ function deleteProduct(id){
 
 function openProductModal(){
   state.editingProductId = null;
-  $('#productModalTitle').textContent = state.lang==='en'?'Add Product':state.lang==='ja'?'製品追加':'新增產品';
+  const title = state.lang === 'en' ? 'Add Product' : state.lang === 'ja' ? '製品追加' : '新增產品';
+  $('#productModalTitle').textContent = title;
   $('#edit_product_id').value = '';
   $('#productForm').reset();
   $('#product_resolution_custom').style.display = 'none';
@@ -718,25 +3740,33 @@ function submitProduct(){
   const tech = $('#product_tech').value;
   const panel = $('#product_panel').value.trim();
   let resolution = $('#product_resolution').value;
+  const lens = $('#product_lens').value;
   const customResolution = $('#product_resolution_custom').value.trim();
   const brightness = Number($('#product_brightness').value);
-  const power = Number($('#product_power').value);
-  const weight = Number($('#product_weight').value);
-  const noise = Number($('#product_noise').value);
+  const powerInput = $('#product_power').value.trim();
+  const power = powerInput ? Number(powerInput) : NaN;
+  const weightInput = $('#product_weight').value.trim();
+  const weight = weightInput ? Number(weightInput) : NaN;
+  const noiseInput = $('#product_noise').value.trim();
+  const noise = noiseInput ? Number(noiseInput) : NaN;
   const w = Number($('#product_w').value);
   const d = Number($('#product_d').value);
   const h = Number($('#product_h').value);
   
   if(resolution === 'custom'){
     if(!customResolution){
-      alert(state.lang==='en'?'Please enter custom resolution':state.lang==='ja'?'カスタム解像度を入力してください':'請輸入自訂解析度');
+      const msg = state.lang === 'en' ? 'Please enter custom resolution' : state.lang === 'ja' ? 'カスタム解像度を入力してください' : '請輸入自訂解析度';
+      alert(msg);
       return;
     }
     resolution = customResolution;
   }
   
-  if(!brand || !model || !brightness || !power || !w || !d || !h){
-    alert(state.lang==='en'?'Please fill in all required fields':state.lang==='ja'?'必須項目を入力してください':'請填寫所有必填欄位');
+  if(!brand || !model || !brightness || !w || !d || !h){
+    const msg = state.lang === 'en' ? 'Please fill in all required fields (Brand, Model, Brightness, Dimensions)' : 
+                state.lang === 'ja' ? '必須項目を入力してください（ブランド、モデル、輝度、寸法）' : 
+                '請填寫所有必填欄位(品牌、型號、亮度、尺寸)';
+    alert(msg);
     return;
   }
   
@@ -746,27 +3776,25 @@ function submitProduct(){
     tech: tech || '',
     panel_size: panel || null,
     resolution_class: resolution || '',
+    lens_type: lens || 'Optional',
     brightness_lm: brightness,
     power_w: power,
-    weight_kg: weight || NaN,
-    noise_db: noise || NaN,
+    weight_kg: weight,
+    noise_db: noise,
     dims_mm: {w, d, h}
   };
   
   if(isEditing){
-    // 編輯現有產品
     const index = DATA.findIndex(d => d.id === state.editingProductId);
     if(index !== -1){
       DATA[index] = { ...DATA[index], ...productData };
     }
     toast((I18N[state.lang]||I18N.zh).ui.productUpdated);
   } else {
-    // 新增產品
     const id = `${brand}-${model}-${Date.now()}`;
     DATA.push({ id, ...productData });
     toast((I18N[state.lang]||I18N.zh).ui.productAdded);
     
-    // 自動選擇新產品
     setTimeout(() => {
       $('#modelSel').value = id;
       addSelected(id);
@@ -775,10 +3803,11 @@ function submitProduct(){
   
   populate();
   render();
+  if(isEditing && $('#manageModal').classList.contains('show')){
+    renderProductTable();
+  }
   closeProductModal();
 }
-
-// === 匯入匯出功能 ===
 
 function importJSON(file){
   const reader = new FileReader();
@@ -797,6 +3826,7 @@ function importJSON(file){
           tech: x.tech ?? '',
           panel_size: (x.panel_size ?? x.panel_inch ?? x.panel ?? x.dmd ?? x.lcd_panel) ?? null,
           resolution_class: x.resolution_class ?? '',
+          lens_type: x.lens_type ?? 'Optional',
           brightness_lm: Number(x.brightness_lm),
           power_w: Number(x.power_w),
           weight_kg: Number(x.weight_kg),
@@ -807,7 +3837,6 @@ function importJSON(file){
       
       if(!normalized.length) throw new Error('No valid data');
       
-      // 修正:完全覆蓋而非合併
       DATA = normalized;
       state.selected = [];
       
@@ -815,7 +3844,8 @@ function importJSON(file){
       render();
       toast((I18N[state.lang]||I18N.zh).ui.imported);
     } catch(err){
-      alert((state.lang==='en'?'Import failed: ':state.lang==='ja'?'インポート失敗: ':'匯入失敗:') + err.message);
+      const msg = state.lang === 'en' ? 'Import failed: ' : state.lang === 'ja' ? 'インポート失敗: ' : '匯入失敗: ';
+      alert(msg + err.message);
     }
   };
   reader.readAsText(file);
@@ -830,6 +3860,34 @@ function exportJSON(){
 }
 
 function exportHTML(){
+  // 在匯出前,清除所有可能影響下次開啟的狀態
+  
+  // 1. 清除搜尋框的值
+  const searchInput = $('#searchProducts');
+  const originalSearchValue = searchInput ? searchInput.value : '';
+  if(searchInput) searchInput.value = '';
+  
+  // 2. 清除篩選器的值
+  const brandSel = $('#brandSel');
+  const techSel = $('#techSel');
+  const resSel = $('#resSel');
+  const brightSel = $('#brightSel');
+  
+  const originalBrand = brandSel ? brandSel.value : '';
+  const originalTech = techSel ? techSel.value : '';
+  const originalRes = resSel ? resSel.value : '';
+  const originalBright = brightSel ? brightSel.value : '';
+  
+  if(brandSel) brandSel.value = '';
+  if(techSel) techSel.value = '';
+  if(resSel) resSel.value = '';
+  if(brightSel) brightSel.value = '';
+  
+  // 3. 關閉所有Modal
+  const modals = document.querySelectorAll('.modal');
+  modals.forEach(m => m.classList.remove('show'));
+  
+  // 4. 序列化DATA並替換
   const serialized = JSON.stringify(DATA, null, 2);
   let html = document.documentElement.outerHTML;
   html = html.replace(/\sdata-theme=(["'])(?:light|dark)\1/gi, '');
@@ -837,17 +3895,41 @@ function exportHTML(){
     /(let|var|const)\s+DATA\s*=\s*\[[\s\S]*?\];/,
     `let DATA = ${serialized};`
   );
+  
+  // 5. 清除所有input的value屬性 (避免保存當前值)
+  html = html.replace(/(<input[^>]*id="searchProducts"[^>]*)value="[^"]*"/gi, '$1');
+  html = html.replace(/(<input[^>]*id="product_[^"]*"[^>]*)value="[^"]*"/gi, '$1');
+  
+  // 6. 清除select的selected屬性
+  html = html.replace(/(<option[^>]*)\s+selected/gi, '$1');
+  
+  // 7. 下載檔案
   const blob = new Blob([html], {type:'text/html'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = 'projector_comparator_v3.1.html';
+  a.download = 'projector_comparator_v3.3.html';
   a.click();
+  
+  // 8. 恢復原始狀態
+  if(searchInput) searchInput.value = originalSearchValue;
+  if(brandSel) brandSel.value = originalBrand;
+  if(techSel) techSel.value = originalTech;
+  if(resSel) resSel.value = originalRes;
+  if(brightSel) brightSel.value = originalBright;
 }
 
 function initTheme(){
   const root = document.documentElement;
   if(!root.dataset.theme){
     root.dataset.theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  updateThemeIcon();
+}
+
+function updateThemeIcon(){
+  const icon = $('#themeIcon');
+  if(icon){
+    icon.textContent = document.documentElement.dataset.theme === 'dark' ? '☀️' : '🌙';
   }
 }
 
@@ -857,12 +3939,12 @@ function init(){
   render();
   
   $('#addColBtn').onclick = () => addSelected($('#modelSel').value);
+  $('#clearFiltersBtn').onclick = clearFilters;
   $('#clearCols').onclick = () => {
     state.selected = [];
     render();
     toast((I18N[state.lang]||I18N.zh).ui.clear);
   };
-  $('#cd_add').onclick = addCustomDims;
   $('#addProductBtn').onclick = openProductModal;
   $('#manageProductsBtn').onclick = openManageModal;
   $('#importInput').onchange = e => {
@@ -875,15 +3957,15 @@ function init(){
   $('#themeToggle').onclick = () => {
     const root = document.documentElement;
     root.dataset.theme = root.dataset.theme === 'light' ? 'dark' : 'light';
+    updateThemeIcon();
     void root.offsetWidth;
   };
-  ['brandSel', 'techSel', 'resSel'].forEach(id => $('#'+id).onchange = setCascade);
+  ['brandSel', 'techSel', 'resSel', 'brightSel'].forEach(id => $('#'+id).onchange = setCascade);
   $('#langSel').onchange = e => {
     state.lang = e.target.value;
     render();
   };
   
-  // Close modals when clicking outside
   $('#productModal').onclick = e => {
     if(e.target.id === 'productModal') closeProductModal();
   };
@@ -898,4 +3980,5 @@ if(document.readyState === 'loading'){
   init();
 }
 </script>
+
 </body></html>
